@@ -1457,11 +1457,23 @@ footer a:hover{color:var(--orange)}
 </div>
 <!-- FINAL CTA -->
 <section class="final-cta" aria-label="Call to action">
-  <h2 class="reveal">Ready to work from Chennai's best coworking space?</h2>
-  <p class="reveal">Book a free tour — no commitment, no pressure. Just come see it.</p>
-  <div class="cta-row reveal">
-    <a href="tel:+919677031457" class="btn-white">☎ Call Us Now</a>
-    <a href="#bookForm" class="btn-outline-white" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Free Tour</a>
+  <div class="cta-orb cta-orb-1" aria-hidden="true"></div>
+  <div class="cta-orb cta-orb-2" aria-hidden="true"></div>
+  <div class="cta-orb cta-orb-3" aria-hidden="true"></div>
+  <div class="cta-inner">
+    <div class="cta-eyebrow reveal">📍 Teynampet, Chennai — 6th Floor, JVL Plaza</div>
+    <h2 class="reveal">Ready to work from<br><em>Chennai's best</em> coworking space?</h2>
+    <p class="reveal">Book a free tour — no commitment, no pressure.<br>Just come see it for yourself.</p>
+    <div class="cta-row reveal">
+      <a href="tel:+919677031457" class="btn-cta-primary">☎&nbsp; Call Us Now</a>
+      <a href="#bookForm" class="btn-cta-outline" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Free Tour →</a>
+    </div>
+    <div class="cta-trust reveal">
+      <span class="cta-trust-item">No long-term lock-in</span>
+      <span class="cta-trust-item">Free site visit</span>
+      <span class="cta-trust-item">Same-day onboarding</span>
+      <span class="cta-trust-item">Flexible plans</span>
+    </div>
   </div>
 </section>
 
@@ -1928,6 +1940,8 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
+
 
 
 
