@@ -378,16 +378,62 @@ a{color:inherit}
 .why-card p{font-size:.85rem;color:var(--muted);line-height:1.6}
 
 /* ── AMENITIES ──────────────────────────────────── */
-.amen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.7rem}
-.amenity{
-  display:flex;align-items:center;gap:.65rem;
-  padding:.7rem .95rem;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
-  font-size:.85rem;color:var(--body);
-  transition:border-color .18s,background .18s,transform .18s var(--ease);
+@keyframes amenFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.12)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+
+.amen-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.1rem;
 }
-.amenity:hover{border-color:var(--blue);background:var(--blue-pale);transform:translateY(-2px)}
-.amenity__dot{width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0}
+@media(max-width:900px){.amen-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.amen-grid{grid-template-columns:repeat(2,1fr)}}
+
+.amenity{
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;
+  padding:1.4rem 1.25rem 1.2rem;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:16px;
+  font-size:1rem;font-weight:600;color:var(--ink);
+  cursor:default;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+}
+/* shine sweep on hover */
+.amenity::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
+  background-size:200% 100%;
+  opacity:0;transition:opacity .3s;
+  pointer-events:none;
+}
+.amenity:hover::before{opacity:1;animation:shimmer .6s ease forwards}
+
+/* colour accent bar at top */
+.amenity::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease);
+  border-radius:16px 16px 0 0;
+}
+.amenity:hover::after{transform:scaleX(1)}
+
+.amenity:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 40px rgba(37,99,181,.14);
+  border-color:var(--blue-light);
+}
+
+.amenity__icon{
+  font-size:1.8rem;line-height:1;
+  transition:transform .35s var(--ease);
+  display:block;
+}
+.amenity:hover .amenity__icon{animation:amenFloat .6s var(--ease) forwards}
+.amenity__label{font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3}
+.amenity__dot{display:none}
 
 /* ── PRICING ────────────────────────────────────── */
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem}
@@ -1044,18 +1090,54 @@ footer a:hover{color:var(--orange)}
     <h2 class="sec__heading reveal" id="amen-heading">Everything you need. Nothing you don't.</h2>
     <p class="sec__intro reveal">Premium facilities as standard — no extras, no hidden fees.</p>
     <div class="amen-grid" role="list">
-      <div class="amenity reveal reveal-d1" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>High-Speed WiFi & LAN</div>
-      <div class="amenity reveal reveal-d2" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Private Cabins</div>
-      <div class="amenity reveal reveal-d3" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Conference Rooms</div>
-      <div class="amenity reveal reveal-d4" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Smart Board Facilities</div>
-      <div class="amenity reveal reveal-d1" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Flexible Hot Desks</div>
-      <div class="amenity reveal reveal-d2" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Discussion Rooms</div>
-      <div class="amenity reveal reveal-d3" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Cafeteria</div>
-      <div class="amenity reveal reveal-d4" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Game Zone</div>
-      <div class="amenity reveal reveal-d1" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>24-Hour Secure Access</div>
-      <div class="amenity reveal reveal-d2" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Front Desk Support</div>
-      <div class="amenity reveal reveal-d3" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>UPS Power Backup</div>
-      <div class="amenity reveal reveal-d4" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Premium Interiors</div>
+      <div class="amenity reveal reveal-d1" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">⚡</span>
+        <span class="amenity__label">High-Speed WiFi &amp; LAN</span>
+      </div>
+      <div class="amenity reveal reveal-d2" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">🚪</span>
+        <span class="amenity__label">Private Cabins</span>
+      </div>
+      <div class="amenity reveal reveal-d3" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">📊</span>
+        <span class="amenity__label">Conference Rooms</span>
+      </div>
+      <div class="amenity reveal reveal-d4" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">🖥️</span>
+        <span class="amenity__label">Smart Board Facilities</span>
+      </div>
+      <div class="amenity reveal reveal-d1" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">💺</span>
+        <span class="amenity__label">Flexible Hot Desks</span>
+      </div>
+      <div class="amenity reveal reveal-d2" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">💬</span>
+        <span class="amenity__label">Discussion Rooms</span>
+      </div>
+      <div class="amenity reveal reveal-d3" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">☕</span>
+        <span class="amenity__label">Cafeteria</span>
+      </div>
+      <div class="amenity reveal reveal-d4" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">🎮</span>
+        <span class="amenity__label">Game Zone</span>
+      </div>
+      <div class="amenity reveal reveal-d1" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">🔐</span>
+        <span class="amenity__label">24-Hour Secure Access</span>
+      </div>
+      <div class="amenity reveal reveal-d2" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">🛎️</span>
+        <span class="amenity__label">Front Desk Support</span>
+      </div>
+      <div class="amenity reveal reveal-d3" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">🔋</span>
+        <span class="amenity__label">UPS Power Backup</span>
+      </div>
+      <div class="amenity reveal reveal-d4" role="listitem">
+        <span class="amenity__icon" aria-hidden="true">✨</span>
+        <span class="amenity__label">Premium Interiors</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1731,6 +1813,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
