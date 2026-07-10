@@ -283,18 +283,27 @@ a{color:inherit}
 }
 .space-card:focus-within{border-color:var(--blue)}
 
-/* Illustration area */
+/* Photo area */
 .space-card__art{
   position:relative;overflow:hidden;
-  height:210px;background:var(--blue-pale);
-  transition:transform .35s var(--ease);
+  height:230px;background:var(--blue-pale);
 }
-.space-card:hover .space-card__art{transform:scale(1.02)}
-.space-card__art canvas{display:block;width:100%;height:100%}
+.space-card__art img{
+  display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform .55s var(--ease),filter .4s;
+  filter:brightness(.93) saturate(1.05);
+}
+.space-card:hover .space-card__art img{transform:scale(1.08);filter:brightness(1) saturate(1.1)}
+/* gradient overlay at bottom so pill text is legible */
+.space-card__art::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(7,14,28,.45) 0%,transparent 55%);
+  pointer-events:none;
+}
 
 /* Category pill overlaid on art */
 .space-card__pill{
-  position:absolute;top:.85rem;left:.85rem;
+  position:absolute;top:.85rem;left:.85rem;z-index:2;
   background:rgba(7,14,28,.65);backdrop-filter:blur(6px);
   color:#E8EDF5;font-size:.65rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.09em;
@@ -351,10 +360,10 @@ a{color:inherit}
 }
 .conf-strip:hover{border-color:var(--blue-light);box-shadow:0 8px 32px rgba(37,99,181,.1);transform:translateY(-3px)}
 .conf-strip__art{
-  width:70px;height:70px;border-radius:var(--rl);
+  width:80px;height:80px;border-radius:var(--rl);
   background:var(--blue-pale);overflow:hidden;flex-shrink:0;
 }
-.conf-strip__art canvas{display:block;width:100%;height:100%}
+.conf-strip__art img{display:block;width:100%;height:100%;object-fit:cover}
 .conf-strip__name{font-family:var(--ff-d);font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.3rem}
 .conf-strip__detail{font-size:.83rem;color:var(--muted);line-height:1.5}
 .conf-strip__price{text-align:right;white-space:nowrap}
@@ -995,7 +1004,7 @@ footer a:hover{color:var(--orange)}
       <!-- HOT DESK -->
       <div class="space-card reveal reveal-d1">
         <div class="space-card__art">
-          <canvas id="art-hotdesk"></canvas>
+          <img src="images/gallery/DSC07149.JPG" alt="Hot desk open floor area" loading="lazy">
           <span class="space-card__pill">Open Floor</span>
         </div>
         <div class="space-card__body">
@@ -1019,7 +1028,7 @@ footer a:hover{color:var(--orange)}
       <!-- PRIVATE CABIN -->
       <div class="space-card space-card--orange reveal reveal-d2">
         <div class="space-card__art">
-          <canvas id="art-cabin"></canvas>
+          <img src="images/gallery/DSC07123.JPG" alt="Private MD cabin" loading="lazy">
           <span class="space-card__pill">MD Cabin</span>
         </div>
         <div class="space-card__body">
@@ -1043,7 +1052,7 @@ footer a:hover{color:var(--orange)}
       <!-- TEAM CABIN -->
       <div class="space-card reveal reveal-d3">
         <div class="space-card__art">
-          <canvas id="art-team"></canvas>
+          <img src="images/gallery/DSC07141.JPG" alt="Team cabin workspace" loading="lazy">
           <span class="space-card__pill">Team Space</span>
         </div>
         <div class="space-card__body">
@@ -1066,7 +1075,7 @@ footer a:hover{color:var(--orange)}
 
       <!-- CONFERENCE — full width strip -->
       <div class="conf-strip reveal reveal-d4">
-        <div class="conf-strip__art"><canvas id="art-conf-sm"></canvas></div>
+        <div class="conf-strip__art"><img src="images/gallery/DSC07132.JPG" alt="Conference room" loading="lazy"></div>
         <div>
           <div class="conf-strip__name">Conference Room</div>
           <div class="conf-strip__detail">10 seats · Smart board · High-speed internet · AV setup · Ideal for client presentations and team workshops</div>
@@ -1791,10 +1800,6 @@ function badge(ctx, x, y, text) {
 
 /* Init all canvases */
 function initCanvases() {
-  drawHotDesk(document.getElementById('art-hotdesk'));
-  drawCabin(document.getElementById('art-cabin'));
-  drawTeam(document.getElementById('art-team'));
-  drawConfSmall(document.getElementById('art-conf-sm'));
   drawMap(document.getElementById('mapCanvas'));
 }
 initCanvases();
@@ -1887,6 +1892,8 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
+
 
 
 
