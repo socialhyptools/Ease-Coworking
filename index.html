@@ -1,6 +1,6 @@
 ﻿<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 
 <title>Ease Coworking — Premium Workspace in Teynampet, Chennai</title>
 <style>
@@ -21,13 +21,13 @@
 
   --ink:      #0F1520;
   --body:     #353C4A;
-  --muted:    #6B7280;
+  --muted:    #4B5563;
   --ground:   #F4F6FA;
   --surface:  #FFFFFF;
   --border:   #DDE3EE;
 
   --ff-d: 'Cormorant Garamond',Georgia,serif;
-  --ff-u: 'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --ff-u: 'Manrope',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
   --r: 5px; --rl: 14px; --rxl: 22px;
   --ease: cubic-bezier(.22,1,.36,1);
 
@@ -257,7 +257,7 @@ a{color:inherit}
   font-size:.67rem;text-transform:uppercase;letter-spacing:.15em;
   color:var(--blue);display:block;margin-bottom:.6rem;
 }
-.sec--dark .sec__eyebrow{color:var(--orange)}.sec--dark .sec__heading{color:var(--hero-text)}.sec--dark .sec__intro{color:var(--hero-sub)}
+.sec--dark .sec__eyebrow{color:var(--orange-deep)}.sec--dark .sec__heading{color:var(--ink)}.sec--dark .sec__intro{color:var(--body)}
 
 .sec__heading{
   font-family:var(--ff-d);
@@ -457,15 +457,15 @@ a{color:inherit}
 .loc-info{display:flex;flex-direction:column;gap:1.4rem}
 .info-row{display:flex;gap:1rem;align-items:flex-start}
 .info-row__ico{
-  width:34px;height:34px;background:rgba(240,117,53,.15);
+  width:38px;height:38px;background:var(--orange-pale);border:1.5px solid var(--orange-lt);
   border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;flex-shrink:0;margin-top:.1rem;
+  font-size:.95rem;flex-shrink:0;margin-top:.1rem;
 }
-.info-row__lbl{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--orange-lt);margin-bottom:.2rem}
-.info-row__val{font-size:.92rem;color:#8FA3C4;line-height:1.55}
-.info-row__val a{color:var(--blue-light);text-decoration:none;transition:color .15s}
-.info-row__val a:hover{color:var(--orange)}
-.map-wrap{background:#08111F;border-radius:var(--rxl);overflow:hidden;border:1px solid rgba(37,99,181,.2);aspect-ratio:4/3}
+.info-row__lbl{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--orange-deep);margin-bottom:.2rem;font-weight:700}
+.info-row__val{font-size:.92rem;color:var(--ink);line-height:1.55;font-weight:500}
+.info-row__val a{color:var(--blue-deep);text-decoration:none;transition:color .15s;font-weight:600}
+.info-row__val a:hover{color:var(--orange-deep)}
+.map-wrap{background:var(--surface);border-radius:var(--rxl);overflow:hidden;border:1px solid var(--border);aspect-ratio:4/3;box-shadow:0 4px 24px rgba(37,99,181,.1)}
 #mapCanvas{display:block;width:100%;height:100%}
 .btn-dir{
   display:inline-flex;align-items:center;gap:.4rem;
@@ -1775,6 +1775,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
