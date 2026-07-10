@@ -1407,182 +1407,146 @@ function fit(canvas) {
   return { ctx, W: w, H: h };
 }
 
-/* ── HOT DESK ── open floor plan */
+/* ── HOT DESK ── open floor plan (fully relative) */
 function drawHotDesk(canvas) {
   const {ctx, W, H} = fit(canvas);
-
-  /* floor */
-  ctx.fillStyle = '#EBF2FD';
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#EBF2FD'; ctx.fillRect(0,0,W,H);
 
   /* tile grid */
   ctx.strokeStyle = '#D5E3F5'; ctx.lineWidth = 0.5;
-  for (let x = 0; x <= W; x += 32) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
-  for (let y = 0; y <= H; y += 32) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  const ts = W/10;
+  for(let x=0;x<=W;x+=ts){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<=H;y+=ts){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
 
-  /* desk layout — 3 rows × 4 desks, two banks separated by aisle */
-  const deskW = 52, deskH = 28, chairR = 8;
-  const rows = [
-    { y: 28, seats: [18,80,160,222] },
-    { y: 90,  seats: [18,80,160,222] },
-    { y: 152, seats: [18,80,160,222] },
-  ];
+  /* desk sizing — all relative to W/H */
+  const dW=W*0.15, dH=H*0.14, cR=H*0.045;
+  const gapX=W*0.045, aisle=W*0.075;
+  /* 4 cols: 2 banks of 2 */
+  const pad=(W-(2*dW+gapX+aisle+2*dW+gapX))/2;
+  const xs=[pad, pad+dW+gapX, pad+dW+gapX+dW+aisle, pad+2*dW+gapX+dW+aisle+gapX];
+  /* 3 rows */
+  const rowH=dH+cR*2+H*0.04;
+  const startY=(H-rowH*3-H*0.04)/2+H*0.02;
+  const ys=[startY, startY+rowH, startY+rowH*2];
 
-  rows.forEach(({y, seats}) => {
-    seats.forEach(x => {
-      /* desk surface */
-      ctx.fillStyle = WHITE;
-      ctx.strokeStyle = BLUELT;
-      ctx.lineWidth = 1;
-      roundRect(ctx, x, y, deskW, deskH, 3);
-      ctx.fill(); ctx.stroke();
+  xs.forEach(x=>ys.forEach(y=>{
+    ctx.fillStyle=WHITE;ctx.strokeStyle=BLUELT;ctx.lineWidth=1;
+    roundRect(ctx,x,y,dW,dH,3);ctx.fill();ctx.stroke();
+    ctx.fillStyle=BLUE;ctx.globalAlpha=0.7;
+    roundRect(ctx,x+dW*0.18,y+dH*0.15,dW*0.45,dH*0.5,2);ctx.fill();ctx.globalAlpha=1;
+    ctx.fillStyle=BLUE;ctx.globalAlpha=0.35;
+    ctx.fillRect(x+dW*0.39,y+dH*0.7,dW*0.09,dH*0.3);ctx.globalAlpha=1;
+    ctx.beginPath();ctx.arc(x+dW/2,y+dH+cR+H*0.01,cR,0,Math.PI*2);
+    ctx.fillStyle=BLUELT;ctx.fill();
+    ctx.strokeStyle='#9BBDE8';ctx.lineWidth=1;ctx.stroke();
+  }));
 
-      /* monitor */
-      ctx.fillStyle = BLUE;
-      ctx.globalAlpha = 0.7;
-      roundRect(ctx, x+10, y+5, 22, 14, 2);
-      ctx.fill();
-      ctx.globalAlpha = 1;
-
-      /* monitor stand */
-      ctx.fillStyle = BLUE; ctx.globalAlpha = 0.4;
-      ctx.fillRect(x+20, y+19, 4, 6);
-      ctx.globalAlpha = 1;
-
-      /* chair */
-      ctx.beginPath();
-      ctx.arc(x + deskW/2, y + deskH + chairR + 2, chairR, 0, Math.PI*2);
-      ctx.fillStyle = BLUELT; ctx.fill();
-      ctx.strokeStyle = '#9BBDE8'; ctx.lineWidth = 1;
-      ctx.stroke();
-    });
-  });
-
-  /* plants in corners */
-  plant(ctx, 8, 8, 12, ORANGE);
-  plant(ctx, W-20, 8, 12, ORANGE);
-  plant(ctx, W-20, H-20, 12, '#4CAF50');
-  plant(ctx, 8, H-20, 12, '#4CAF50');
-
-  /* small "78 seats" label */
-  badge(ctx, W/2, H-14, '78 Available Desks');
+  plant(ctx,W*0.03,H*0.03,W*0.038,ORANGE);
+  plant(ctx,W*0.97,H*0.03,W*0.038,ORANGE);
+  plant(ctx,W*0.97,H*0.88,W*0.038,'#4CAF50');
+  plant(ctx,W*0.03,H*0.88,W*0.038,'#4CAF50');
+  badge(ctx,W/2,H-H*0.06,'78 Available Desks');
 }
 
-/* ── PRIVATE CABIN ── MD executive room */
+/* ── PRIVATE CABIN ── MD executive room (fully relative) */
 function drawCabin(canvas) {
   const {ctx, W, H} = fit(canvas);
-  ctx.fillStyle = '#F0F4FF'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#F0F4FF'; ctx.fillRect(0,0,W,H);
 
+  const pad=W*0.045, padT=H*0.055;
   /* room walls */
-  ctx.strokeStyle = BLUE; ctx.lineWidth = 2.5;
-  ctx.strokeRect(14, 14, W-28, H-28);
+  ctx.strokeStyle=BLUE; ctx.lineWidth=2.5;
+  ctx.strokeRect(pad,padT,W-pad*2,H-padT*2);
 
-  /* door gap on bottom wall */
-  ctx.clearRect(W/2-18, H-16, 36, 3);
-  ctx.fillStyle = '#F0F4FF';
-  ctx.fillRect(W/2-18, H-16, 36, 3);
-
-  /* door arc */
+  /* door gap + arc on bottom */
+  const doorW=W*0.24, doorX=W/2-doorW/2;
+  ctx.clearRect(doorX,H-padT-1,doorW,padT+2);
+  ctx.fillStyle='#F0F4FF'; ctx.fillRect(doorX,H-padT-1,doorW,padT+2);
   ctx.beginPath();
-  ctx.arc(W/2-18, H-14, 36, -Math.PI/2, 0, false);
-  ctx.strokeStyle = BLUE; ctx.lineWidth = 1; ctx.stroke();
+  ctx.arc(doorX,H-padT,doorW,-Math.PI/2,0,false);
+  ctx.strokeStyle=BLUE; ctx.lineWidth=1; ctx.stroke();
 
-  /* L-shaped executive desk */
-  ctx.fillStyle = WHITE; ctx.strokeStyle = BLUE; ctx.lineWidth = 1.2;
-  /* main surface */
-  roundRect(ctx, 28, 28, W-100, 44, 4); ctx.fill(); ctx.stroke();
-  /* return */
-  roundRect(ctx, W-84, 28, 44, 80, 4); ctx.fill(); ctx.stroke();
+  /* L-shaped desk */
+  const deskX=pad+W*0.05, deskY=padT+H*0.04;
+  const mainW=W*0.55, mainH=H*0.2;
+  const retW=W*0.18, retH=H*0.36;
+  ctx.fillStyle=WHITE; ctx.strokeStyle=BLUE; ctx.lineWidth=1.2;
+  roundRect(ctx,deskX,deskY,mainW,mainH,4); ctx.fill(); ctx.stroke();
+  roundRect(ctx,deskX+mainW,deskY,retW,retH,4); ctx.fill(); ctx.stroke();
 
-  /* monitor */
-  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.8;
-  roundRect(ctx, 60, 34, 36, 22, 3); ctx.fill();
-  ctx.globalAlpha = 1;
-
-  /* stand */
-  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.4;
-  ctx.fillRect(76, 56, 4, 6); ctx.globalAlpha = 1;
+  /* monitor on main desk */
+  ctx.fillStyle=BLUE; ctx.globalAlpha=0.8;
+  roundRect(ctx,deskX+mainW*0.15,deskY+mainH*0.15,mainW*0.35,mainH*0.55,3); ctx.fill(); ctx.globalAlpha=1;
+  ctx.fillStyle=BLUE; ctx.globalAlpha=0.35;
+  ctx.fillRect(deskX+mainW*0.3,deskY+mainH*0.72,mainW*0.05,mainH*0.25); ctx.globalAlpha=1;
 
   /* laptop on return */
-  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.5;
-  roundRect(ctx, W-78, 46, 28, 18, 2); ctx.fill(); ctx.globalAlpha = 1;
+  ctx.fillStyle=BLUE; ctx.globalAlpha=0.5;
+  roundRect(ctx,deskX+mainW+retW*0.12,deskY+retH*0.15,retW*0.72,retH*0.28,2); ctx.fill(); ctx.globalAlpha=1;
 
-  /* executive chair */
-  ctx.beginPath();
-  ctx.arc(W/2-10, 100, 20, 0, Math.PI*2);
-  ctx.fillStyle = '#2563B5'; ctx.globalAlpha = 0.25; ctx.fill(); ctx.globalAlpha = 1;
-  ctx.beginPath(); ctx.arc(W/2-10, 100, 14, 0, Math.PI*2);
-  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.6; ctx.fill(); ctx.globalAlpha = 1;
+  /* executive chair — centred below main desk */
+  const chairX=deskX+mainW*0.38, chairY=deskY+mainH+H*0.2;
+  ctx.beginPath(); ctx.arc(chairX,chairY,H*0.1,0,Math.PI*2);
+  ctx.fillStyle='#2563B5'; ctx.globalAlpha=0.2; ctx.fill(); ctx.globalAlpha=1;
+  ctx.beginPath(); ctx.arc(chairX,chairY,H*0.07,0,Math.PI*2);
+  ctx.fillStyle=BLUE; ctx.globalAlpha=0.6; ctx.fill(); ctx.globalAlpha=1;
 
   /* bookshelf on left wall */
-  ctx.fillStyle = '#D4E3F7'; ctx.fillRect(18, 80, 8, 60);
-  ctx.strokeStyle = BLUELT; ctx.lineWidth = 0.5;
-  for (let i = 0; i < 4; i++) ctx.fillRect(19, 81+i*15, 6, 12);
+  ctx.fillStyle='#D4E3F7';
+  ctx.fillRect(pad+2,padT+H*0.2,W*0.025,H*0.35);
+  ctx.strokeStyle=BLUELT; ctx.lineWidth=0.5;
+  for(let i=0;i<4;i++) ctx.fillRect(pad+3,padT+H*0.21+i*H*0.085,W*0.02,H*0.07);
 
-  /* orange plant */
-  plant(ctx, W-36, H-40, 14, ORANGE);
-
-  badge(ctx, W/2, H-14, 'Private MD Cabin · 3 Seats');
+  plant(ctx,W-pad-W*0.07,H-padT-H*0.12,W*0.04,ORANGE);
+  badge(ctx,W/2,H-H*0.06,'Private MD Cabin · 3 Seats');
 }
 
 /* ── TEAM CABIN ── cluster layout */
 function drawTeam(canvas) {
   const {ctx, W, H} = fit(canvas);
-  ctx.fillStyle = '#F4F7FC'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#F4F7FC'; ctx.fillRect(0,0,W,H);
 
-  /* room */
-  ctx.strokeStyle = BLUE; ctx.lineWidth = 2;
-  ctx.strokeRect(12, 12, W-24, H-24);
+  const pad=W*0.04, padT=H*0.05;
+  /* room border */
+  ctx.strokeStyle=BLUE; ctx.lineWidth=2;
+  ctx.strokeRect(pad,padT,W-pad*2,H-padT*2);
 
-  /* whiteboard on top wall */
-  ctx.fillStyle = WHITE; ctx.strokeStyle = '#9BBDE8'; ctx.lineWidth = 1;
-  roundRect(ctx, W/2-50, 18, 100, 32, 2); ctx.fill(); ctx.stroke();
-  /* lines on whiteboard */
-  ctx.strokeStyle = '#C0D4EF'; ctx.lineWidth = 0.5;
-  for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(W/2-42,26+i*9); ctx.lineTo(W/2+42,26+i*9); ctx.stroke(); }
-  /* marker dot */
-  ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(W/2-38, 28, 2, 0, Math.PI*2); ctx.fill();
+  /* whiteboard centred on top wall */
+  const wbW=W*0.38, wbH=H*0.15, wbX=W/2-wbW/2, wbY=padT+H*0.02;
+  ctx.fillStyle=WHITE; ctx.strokeStyle='#9BBDE8'; ctx.lineWidth=1;
+  roundRect(ctx,wbX,wbY,wbW,wbH,2); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle='#C0D4EF'; ctx.lineWidth=0.5;
+  for(let i=0;i<3;i++){ctx.beginPath();ctx.moveTo(wbX+wbW*0.07,wbY+wbH*0.2+i*wbH*0.27);ctx.lineTo(wbX+wbW*0.93,wbY+wbH*0.2+i*wbH*0.27);ctx.stroke();}
+  ctx.fillStyle=ORANGE; ctx.beginPath(); ctx.arc(wbX+wbW*0.1,wbY+wbH*0.25,W*0.007,0,Math.PI*2); ctx.fill();
 
-  /* cluster of desks — 2×2 pod */
-  const pod = (x, y) => {
-    const dw = 42, dh = 22;
-    /* top-left */
-    ctx.fillStyle = WHITE; ctx.strokeStyle = BLUELT; ctx.lineWidth = 1;
-    roundRect(ctx, x, y, dw, dh, 3); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
-    roundRect(ctx, x+8, y+4, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
-
-    /* top-right */
-    roundRect(ctx, x+dw+6, y, dw, dh, 3); ctx.fillStyle=WHITE; ctx.fill(); ctx.strokeStyle=BLUELT; ctx.stroke();
-    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
-    roundRect(ctx, x+dw+14, y+4, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
-
-    /* bottom-left */
-    roundRect(ctx, x, y+dh+6, dw, dh, 3); ctx.fillStyle=WHITE; ctx.fill(); ctx.strokeStyle=BLUELT; ctx.stroke();
-    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
-    roundRect(ctx, x+8, y+dh+10, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
-
-    /* bottom-right */
-    roundRect(ctx, x+dw+6, y+dh+6, dw, dh, 3); ctx.fillStyle=WHITE; ctx.fill(); ctx.strokeStyle=BLUELT; ctx.stroke();
-    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
-    roundRect(ctx, x+dw+14, y+dh+10, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
-
-    /* chairs around pod */
-    const seats = [
-      [x+dw/2, y-10], [x+dw+dw/2+6, y-10],
-      [x+dw/2, y+dh*2+16], [x+dw+dw/2+6, y+dh*2+16],
-    ];
-    seats.forEach(([cx,cy]) => {
-      ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI*2);
-      ctx.fillStyle = BLUELT; ctx.fill();
+  /* 2×2 desk pod — relative sizes */
+  const dw=W*0.14, dh=H*0.12, dgap=W*0.02, cR=H*0.038;
+  const pod=(ox,oy)=>{
+    [[0,0],[dw+dgap,0],[0,dh+dgap],[dw+dgap,dh+dgap]].forEach(([dx,dy])=>{
+      ctx.fillStyle=WHITE; ctx.strokeStyle=BLUELT; ctx.lineWidth=1;
+      roundRect(ctx,ox+dx,oy+dy,dw,dh,3); ctx.fill(); ctx.stroke();
+      ctx.fillStyle=BLUE; ctx.globalAlpha=0.55;
+      roundRect(ctx,ox+dx+dw*0.17,oy+dy+dh*0.2,dw*0.45,dh*0.55,2); ctx.fill(); ctx.globalAlpha=1;
+    });
+    /* chairs: top row above, bottom row below */
+    [[dw/2,- cR-H*0.01],[dw+dgap+dw/2,-cR-H*0.01],
+     [dw/2, dh+dgap+dh+cR+H*0.01],[dw+dgap+dw/2,dh+dgap+dh+cR+H*0.01]].forEach(([dx,dy])=>{
+      ctx.beginPath(); ctx.arc(ox+dx,oy+dy,cR,0,Math.PI*2);
+      ctx.fillStyle=BLUELT; ctx.fill();
+      ctx.strokeStyle='#9BBDE8'; ctx.lineWidth=1; ctx.stroke();
     });
   };
 
-  pod(28, 64);   /* left pod */
-  pod(W/2+2, 64); /* right pod */
+  const podW=dw*2+dgap, podH=dh*2+dgap;
+  const aisle=W*0.07;
+  const totalPodW=podW*2+aisle;
+  const podStartX=(W-totalPodW)/2;
+  const podStartY=padT+wbH+H*0.12+(H-padT*2-wbH-H*0.12-podH)/2;
+  pod(podStartX, podStartY);
+  pod(podStartX+podW+aisle, podStartY);
 
-  plant(ctx, W-30, H-30, 13, ORANGE);
-  badge(ctx, W/2, H-14, '8 Team Cabins · 4–14 Seats');
+  plant(ctx,W-pad-W*0.05,H-padT-H*0.1,W*0.038,ORANGE);
+  badge(ctx,W/2,H-H*0.06,'8 Team Cabins · 4–14 Seats');
 }
 
 /* ── CONFERENCE small thumbnail */
@@ -1775,6 +1739,9 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
+
+
 
 
 
