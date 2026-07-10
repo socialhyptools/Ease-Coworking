@@ -651,6 +651,21 @@ a{color:inherit}
 .btn-outline-white:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
 
+/* CTA trust pills */
+.cta-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;position:relative;z-index:2;margin-top:2.5rem}
+.cta-trust-item{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.45rem 1.1rem;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(8px);
+  color:rgba(220,230,245,.85);
+  font-family:var(--ff-u);font-size:.82rem;font-weight:500;
+  letter-spacing:.02em;white-space:nowrap;
+}
+.cta-trust-item::before{content:'✓';color:var(--orange);font-weight:700;font-size:.8rem}
+
 /* CTA orbs */
 @keyframes ctaOrb{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-18px)}}
 .cta-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0}
