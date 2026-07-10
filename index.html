@@ -1,6 +1,6 @@
 ﻿<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <title>Ease Coworking — Premium Workspace in Teynampet, Chennai</title>
 <style>
@@ -26,8 +26,8 @@
   --surface:  #FFFFFF;
   --border:   #DDE3EE;
 
-  --ff-d: 'Cormorant Garamond',Georgia,serif;
-  --ff-u: 'Manrope',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --ff-d: 'Playfair Display',Georgia,serif;
+  --ff-u: 'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
   --r: 5px; --rl: 14px; --rxl: 22px;
   --ease: cubic-bezier(.22,1,.36,1);
 
@@ -151,11 +151,11 @@ a{color:inherit}
 /* floating location badge */
 .hero__badge{
   display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(240,117,53,.15);
-  border:1px solid rgba(240,117,53,.35);
+  background:rgba(240,117,53,.1);
+  border:1.5px solid rgba(240,117,53,.5);
   border-radius:20px;padding:.3rem .85rem;
   font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--orange-lt);
+  color:var(--orange-deep);
   margin-bottom:1.25rem;
   animation:badgeFloat 3s ease-in-out infinite;
 }
@@ -164,9 +164,9 @@ a{color:inherit}
 
 .hero__title{
   font-family:var(--ff-d);
-  font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:600;
+  font-size:clamp(2.4rem,5vw,4rem);font-weight:700;
   line-height:1.1;color:var(--hero-text);text-wrap:balance;
-  margin-bottom:1.4rem;letter-spacing:-.01em;
+  margin-bottom:1.4rem;letter-spacing:-.02em;
 }
 .hero__title em{font-style:italic;color:var(--orange)}
 
@@ -261,8 +261,8 @@ a{color:inherit}
 
 .sec__heading{
   font-family:var(--ff-d);
-  font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:600;
-  color:var(--ink);text-wrap:balance;line-height:1.2;margin-bottom:.65rem;letter-spacing:-.01em;
+  font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;
+  color:var(--ink);text-wrap:balance;line-height:1.2;margin-bottom:.65rem;letter-spacing:-.02em;
 }
 .sec__intro{font-size:1rem;color:var(--muted);max-width:540px;margin-bottom:3rem;line-height:1.75}
 /* ── SPACES ─────────────────────────────────────── */
@@ -583,7 +583,7 @@ footer a:hover{color:var(--orange)}
 .popup__badge{
   display:inline-flex;align-items:center;gap:.4rem;
   background:rgba(240,117,53,.2);border:1px solid rgba(240,117,53,.4);
-  color:var(--orange-lt);font-size:.67rem;font-weight:700;
+  color:var(--orange-deep);font-size:.67rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.1em;
   padding:.22rem .7rem;border-radius:20px;margin-bottom:.85rem;
 }
@@ -592,7 +592,7 @@ footer a:hover{color:var(--orange)}
   color:#E8EDF5;line-height:1.2;margin-bottom:.35rem;text-wrap:balance;
 }
 .popup__sub{font-size:.83rem;color:#8FA3C4;line-height:1.55}
-.popup__sub strong{color:var(--orange-lt);font-weight:600}
+.popup__sub strong{color:var(--orange-deep);font-weight:600}
 
 .popup__body{padding:1.75rem 2rem 2rem}
 
@@ -1775,6 +1775,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
