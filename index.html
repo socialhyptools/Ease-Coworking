@@ -362,20 +362,90 @@ a{color:inherit}
 .conf-strip__unit{font-size:.73rem;color:var(--muted)}
 
 /* ── WHY CARDS ──────────────────────────────────── */
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem}
+@keyframes iconPop{0%{transform:scale(1) rotate(0deg)}30%{transform:scale(1.25) rotate(-8deg)}60%{transform:scale(0.95) rotate(4deg)}100%{transform:scale(1) rotate(0deg)}}
+@keyframes borderGrow{from{height:0}to{height:100%}}
+@keyframes cardGlow{0%,100%{box-shadow:0 8px 32px rgba(37,99,181,.1)}50%{box-shadow:0 16px 48px rgba(37,99,181,.18)}}
+
+.why-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;
+}
+@media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.why-grid{grid-template-columns:1fr}}
+
 .why-card{
-  padding:1.6rem;background:var(--ground);
-  border-left:3px solid var(--blue);border-radius:0 var(--r) var(--r) 0;
-  transition:box-shadow .2s,transform .2s var(--ease);
+  position:relative;
+  padding:2rem 1.6rem 1.8rem;
+  background:var(--surface);
+  border-radius:20px;
+  border:1.5px solid var(--border);
+  overflow:hidden;
+  display:flex;flex-direction:column;gap:.0rem;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s;
 }
-.why-card:hover{box-shadow:0 6px 24px rgba(37,99,181,.1);transform:translateX(4px)}
+/* animated gradient background blob on hover */
+.why-card::before{
+  content:'';position:absolute;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,var(--blue-pale) 0%,transparent 70%);
+  top:-60px;right:-60px;
+  transform:scale(0);transition:transform .5s var(--ease);
+  pointer-events:none;z-index:0;
+}
+.why-card:hover::before{transform:scale(1.8)}
+
+/* bottom colour stripe */
+.why-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.why-card:hover::after{transform:scaleX(1)}
+
+.why-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 24px 56px rgba(37,99,181,.15);
+  border-color:var(--blue-light);
+  animation:cardGlow 2s ease-in-out infinite;
+}
+
 .why-card__icon{
-  width:40px;height:40px;border-radius:var(--r);
-  background:var(--blue-glow);display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;margin-bottom:.9rem;
+  position:relative;z-index:1;
+  width:60px;height:60px;border-radius:16px;
+  background:linear-gradient(135deg,var(--blue-pale),#fff);
+  border:1.5px solid var(--blue-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.75rem;margin-bottom:1.25rem;
+  transition:background .3s,border-color .3s;
+  box-shadow:0 4px 12px rgba(37,99,181,.1);
 }
-.why-card h4{font-family:var(--ff-d);font-size:1rem;font-weight:400;color:var(--ink);margin-bottom:.4rem;line-height:1.3}
-.why-card p{font-size:.85rem;color:var(--muted);line-height:1.6}
+.why-card:hover .why-card__icon{
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+  border-color:var(--blue);
+  animation:iconPop .5s var(--ease) forwards;
+}
+
+.why-card__num{
+  position:absolute;top:1.1rem;right:1.25rem;
+  font-family:var(--ff-d);font-size:3.5rem;font-weight:700;line-height:1;
+  color:var(--border);
+  transition:color .3s;
+  z-index:0;
+  user-select:none;
+}
+.why-card:hover .why-card__num{color:var(--blue-pale)}
+
+.why-card h4{
+  position:relative;z-index:1;
+  font-family:var(--ff-d);font-size:1.25rem;font-weight:700;
+  color:var(--ink);margin-bottom:.65rem;line-height:1.25;
+}
+.why-card p{
+  position:relative;z-index:1;
+  font-size:1rem;color:var(--muted);line-height:1.7;
+}
 
 /* ── AMENITIES ──────────────────────────────────── */
 @keyframes amenFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.12)}}
@@ -1060,21 +1130,25 @@ footer a:hover{color:var(--orange)}
     <p class="sec__intro reveal">Not just a desk — a complete work environment designed by an M.Arch professional for productivity, collaboration, and growth.</p>
     <div class="why-grid">
       <div class="why-card reveal reveal-d1">
+        <span class="why-card__num" aria-hidden="true">01</span>
         <div class="why-card__icon" aria-hidden="true">🏗️</div>
         <h4>Purposeful Design</h4>
-        <p>Every corner optimized by an architect for ergonomics, acoustics, and focus. You'll feel the difference the moment you walk in.</p>
+        <p>Every corner optimized by an M.Arch professional for ergonomics, acoustics, and focus. You'll feel the difference the moment you walk in.</p>
       </div>
       <div class="why-card reveal reveal-d2">
+        <span class="why-card__num" aria-hidden="true">02</span>
         <div class="why-card__icon" aria-hidden="true">⚡</div>
         <h4>Corporate Infrastructure</h4>
         <p>1 Gbps WiFi, LAN, UPS power backup, and smart board conference rooms — the full stack, without a corporate lease.</p>
       </div>
       <div class="why-card reveal reveal-d3">
+        <span class="why-card__num" aria-hidden="true">03</span>
         <div class="why-card__icon" aria-hidden="true">🤝</div>
         <h4>Thriving Community</h4>
         <p>Work alongside Chennai's fastest-growing startups and freelancers. Ease is built around connection, not isolation.</p>
       </div>
       <div class="why-card reveal reveal-d4">
+        <span class="why-card__num" aria-hidden="true">04</span>
         <div class="why-card__icon" aria-hidden="true">📈</div>
         <h4>Scales With You</h4>
         <p>Hot desk today, private cabin next month. Flexible plans let you expand at your pace, on your schedule.</p>
@@ -1813,6 +1887,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
