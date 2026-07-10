@@ -536,6 +536,143 @@ footer a:hover{color:var(--orange)}
   *,*::before,*::after{transition:none !important;animation:none !important}
   .reveal{opacity:1;transform:none}
 }
+
+/* ── POPUP ──────────────────────────────────────── */
+.popup-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(7,14,28,.65);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s var(--ease);
+}
+.popup-overlay.open{opacity:1;pointer-events:all}
+
+.popup{
+  background:var(--surface);
+  border-radius:var(--rxl);
+  width:100%;max-width:520px;max-height:90vh;
+  overflow-y:auto;
+  box-shadow:0 40px 100px rgba(7,14,28,.55),0 0 0 1px rgba(37,99,181,.18);
+  transform:translateY(28px) scale(.97);
+  transition:transform .4s var(--ease),opacity .35s var(--ease);
+  opacity:0;
+  position:relative;
+}
+.popup-overlay.open .popup{transform:translateY(0) scale(1);opacity:1}
+
+.popup__header{
+  background:linear-gradient(135deg,#0D1A35 0%,#1A3460 100%);
+  padding:1.75rem 2rem 1.4rem;
+  border-radius:var(--rxl) var(--rxl) 0 0;
+  position:relative;
+}
+.popup__close{
+  position:absolute;top:1rem;right:1rem;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:none;cursor:pointer;
+  color:#E8EDF5;font-size:1.1rem;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,transform .18s;
+}
+.popup__close:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
+.popup__close:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+.popup__badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(240,117,53,.2);border:1px solid rgba(240,117,53,.4);
+  color:var(--orange-lt);font-size:.67rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:.22rem .7rem;border-radius:20px;margin-bottom:.85rem;
+}
+.popup__title{
+  font-family:var(--ff-d);font-size:1.4rem;font-weight:400;
+  color:#E8EDF5;line-height:1.2;margin-bottom:.35rem;text-wrap:balance;
+}
+.popup__sub{font-size:.83rem;color:#8FA3C4;line-height:1.55}
+.popup__sub strong{color:var(--orange-lt);font-weight:600}
+
+.popup__body{padding:1.75rem 2rem 2rem}
+
+.popup .fg{margin-bottom:.85rem}
+.popup .fg label{
+  display:block;font-size:.68rem;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem;
+}
+.popup .fg input,
+.popup .fg select{
+  width:100%;border:1.5px solid var(--border);border-radius:var(--r);
+  padding:.65rem .9rem;font-family:var(--ff-u);font-size:.95rem;
+  color:var(--ink);background:var(--surface);outline:none;
+  transition:border-color .18s,box-shadow .18s;
+  appearance:none;-webkit-appearance:none;
+}
+.popup .fg input:focus,
+.popup .fg select:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-glow);
+}
+.popup .fg select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%236B7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .85rem center;
+  padding-right:2.4rem;
+}
+
+.popup .fg-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+@media(max-width:480px){.popup .fg-row{grid-template-columns:1fr}}
+
+.popup-submit{
+  width:100%;background:var(--orange);color:#fff;border:none;
+  padding:.92rem 1.5rem;font-family:var(--ff-u);font-size:.97rem;font-weight:700;
+  letter-spacing:.04em;border-radius:var(--r);cursor:pointer;
+  transition:background .18s,transform .12s,box-shadow .18s;
+  box-shadow:0 4px 18px rgba(240,117,53,.38);margin-top:.5rem;
+}
+.popup-submit:hover{background:var(--orange-deep);transform:translateY(-2px);box-shadow:0 8px 28px rgba(240,117,53,.42)}
+.popup-submit:active{transform:translateY(0)}
+.popup-submit:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+.popup-trust{
+  display:flex;align-items:center;justify-content:center;
+  gap:.35rem;font-size:.72rem;color:var(--muted);margin-top:.65rem;
+}
+
+/* Success state */
+.popup__success{
+  display:none;flex-direction:column;align-items:center;
+  text-align:center;padding:3rem 2rem;gap:1rem;
+}
+.popup__success.show{display:flex}
+.popup__body.hide{display:none}
+.success-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(135deg,#2563B5,#F07535);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;
+  animation:popIn .5s var(--ease);
+}
+@keyframes popIn{0%{transform:scale(0)}80%{transform:scale(1.12)}100%{transform:scale(1)}}
+.popup__success h3{font-family:var(--ff-d);font-size:1.3rem;font-weight:400;color:var(--ink)}
+.popup__success p{font-size:.88rem;color:var(--muted);max-width:320px;line-height:1.6}
+
+/* Floating trigger button */
+.popup-trigger{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:500;
+  background:var(--orange);color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;gap:.55rem;
+  padding:.8rem 1.3rem;border-radius:30px;
+  font-family:var(--ff-u);font-size:.88rem;font-weight:700;letter-spacing:.04em;
+  box-shadow:0 6px 24px rgba(240,117,53,.45);
+  transition:background .18s,transform .2s var(--ease),box-shadow .2s;
+  animation:slideUp .5s var(--ease) 1.5s both;
+}
+@keyframes slideUp{from{transform:translateY(80px);opacity:0}to{transform:translateY(0);opacity:1}}
+.popup-trigger:hover{background:var(--orange-deep);transform:translateY(-3px);box-shadow:0 10px 32px rgba(240,117,53,.5)}
+.popup-trigger:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.popup-trigger__icon{font-size:1.05rem}
+
+/* Hide trigger when popup is open */
+.popup-overlay.open ~ .popup-trigger{opacity:0;pointer-events:none}
 </style>
 
 <!-- TOP BAR -->
@@ -910,6 +1047,90 @@ footer a:hover{color:var(--orange)}
   </div>
 </section>
 
+<!-- ── POPUP MODAL ── -->
+<div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+  <div class="popup" id="popupCard">
+
+    <!-- Header -->
+    <div class="popup__header">
+      <button class="popup__close" id="popupClose" aria-label="Close form">✕</button>
+      <div class="popup__badge">📍 Ease Coworking · Teynampet</div>
+      <h2 class="popup__title" id="popupTitle">Get a personalised quote<br>for your team</h2>
+      <p class="popup__sub">Fill in the details below — we'll <strong>call you back within 30 minutes</strong> with pricing and availability.</p>
+    </div>
+
+    <!-- Form body -->
+    <div class="popup__body" id="popupBody">
+      <form id="popupForm" novalidate onsubmit="handlePopupSubmit(event)">
+
+        <div class="fg-row">
+          <div class="fg">
+            <label for="p-name">Full Name <span style="color:var(--orange)">*</span></label>
+            <input type="text" id="p-name" name="name" placeholder="Rahul Sharma" required autocomplete="name">
+          </div>
+          <div class="fg">
+            <label for="p-company">Company Name</label>
+            <input type="text" id="p-company" name="company" placeholder="Acme Pvt Ltd" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="fg">
+          <label for="p-email">Business Email <span style="color:var(--orange)">*</span></label>
+          <input type="email" id="p-email" name="email" placeholder="rahul@acme.com" required autocomplete="email">
+        </div>
+
+        <div class="fg">
+          <label for="p-phone">Phone Number <span style="color:var(--orange)">*</span></label>
+          <input type="tel" id="p-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel">
+        </div>
+
+        <div class="fg">
+          <label for="p-location">Choose Location</label>
+          <select id="p-location" name="location">
+            <option value="" disabled selected>Select a location</option>
+            <option value="teynampet">Teynampet, Chennai</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label for="p-team">Team Size <span style="color:var(--orange)">*</span></label>
+          <select id="p-team" name="teamSize" required>
+            <option value="" disabled selected>Select team size</option>
+            <option value="1">1 Person</option>
+            <option value="2-5">2–5 Peoples</option>
+            <option value="6-10">6–10 Peoples</option>
+            <option value="11-20">11–20 Peoples</option>
+            <option value="20+">20+ Peoples</option>
+          </select>
+        </div>
+
+        <button type="submit" class="popup-submit" id="popupSubmitBtn">
+          Get My Free Quote →
+        </button>
+        <p class="popup-trust">
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"><rect x="1" y="5" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Your details are safe with us. No spam, ever.
+        </p>
+      </form>
+    </div>
+
+    <!-- Success state -->
+    <div class="popup__success" id="popupSuccess">
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <h3>We'll call you shortly!</h3>
+      <p>Thanks for reaching out. Our team will get back to you within 30 minutes with pricing and a tour slot.</p>
+      <button class="btn-orange" onclick="closePopup()" style="width:auto;padding:.7rem 2rem;margin-top:.5rem">Close</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Floating trigger button -->
+<button class="popup-trigger" id="popupTrigger" onclick="openPopup()" aria-label="Get a free quote">
+  <span class="popup-trigger__icon">💬</span>
+  Get a Free Quote
+</button>
+
 <footer role="contentinfo">
   <p>© 2025 Ease Coworking &nbsp;·&nbsp; 6th Floor, JVL Plaza, Teynampet, Chennai 600018</p>
   <p style="margin-top:.3rem">
@@ -1250,6 +1471,75 @@ function initCanvases() {
 }
 initCanvases();
 window.addEventListener('resize', initCanvases);
+
+/* ────────────────────────────────────────────
+   POPUP LOGIC
+──────────────────────────────────────────── */
+const overlay  = document.getElementById('popupOverlay');
+const popClose = document.getElementById('popupClose');
+
+function openPopup() {
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Focus first input for accessibility
+  setTimeout(() => document.getElementById('p-name').focus(), 350);
+}
+function closePopup() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close on overlay backdrop click
+overlay.addEventListener('click', e => { if (e.target === overlay) closePopup(); });
+popClose.addEventListener('click', closePopup);
+
+// Close on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closePopup(); });
+
+// Auto-show after 7s (once per session)
+if (!sessionStorage.getItem('popupSeen')) {
+  setTimeout(() => {
+    openPopup();
+    sessionStorage.setItem('popupSeen', '1');
+  }, 7000);
+}
+
+// Popup form submit
+function handlePopupSubmit(e) {
+  e.preventDefault();
+  const name  = document.getElementById('p-name').value.trim();
+  const email = document.getElementById('p-email').value.trim();
+  const phone = document.getElementById('p-phone').value.trim();
+  const team  = document.getElementById('p-team').value;
+
+  if (!name || !email || !phone || !team) {
+    alert('Please fill in all required fields (marked with *).');
+    return;
+  }
+
+  const btn = document.getElementById('popupSubmitBtn');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  const company  = document.getElementById('p-company').value.trim() || 'Not provided';
+  const location = document.getElementById('p-location').selectedOptions[0]?.text || 'Teynampet, Chennai';
+  const teamText = document.getElementById('p-team').selectedOptions[0].text;
+
+  const msg = encodeURIComponent(
+    `Hi! I'd like to get a quote from Ease Coworking.\n\n` +
+    `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n` +
+    `Company: ${company}\nLocation: ${location}\nTeam Size: ${teamText}\n\n` +
+    `Please get back to me with pricing and availability. Thank you!`
+  );
+
+  setTimeout(() => {
+    // Show success state
+    document.getElementById('popupBody').classList.add('hide');
+    document.getElementById('popupSuccess').classList.add('show');
+    // Open WhatsApp
+    window.open('https://wa.me/919677031457?text=' + msg, '_blank');
+  }, 600);
+}
 
 /* ────────────────────────────────────────────
    FORM SUBMIT
