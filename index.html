@@ -651,6 +651,31 @@ a{color:inherit}
 .btn-outline-white:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
 
+/* CTA buttons */
+.cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;margin-bottom:1.5rem}
+.btn-cta-primary{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:1rem 2.2rem;
+  background:var(--orange);color:#fff;
+  border:none;border-radius:50px;
+  font-family:var(--ff-u);font-size:1rem;font-weight:700;
+  letter-spacing:.02em;text-decoration:none;cursor:pointer;
+  box-shadow:0 6px 24px rgba(240,117,53,.45);
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+.btn-cta-primary:hover{background:var(--orange-deep);transform:translateY(-3px);box-shadow:0 12px 32px rgba(240,117,53,.55)}
+.btn-cta-outline{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:1rem 2.2rem;
+  background:rgba(255,255,255,.08);color:#E8EDF5;
+  border:1.5px solid rgba(255,255,255,.35);border-radius:50px;
+  font-family:var(--ff-u);font-size:1rem;font-weight:600;
+  letter-spacing:.02em;text-decoration:none;cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.btn-cta-outline:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.7);transform:translateY(-3px)}
+
 /* CTA trust pills */
 .cta-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;position:relative;z-index:2;margin-top:2.5rem}
 .cta-trust-item{
