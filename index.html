@@ -552,8 +552,21 @@ a{color:inherit}
 .ws-list li{display:flex;align-items:flex-start;gap:.5rem;font-size:.83rem;color:var(--body);line-height:1.45}
 .ws-list li::before{content:'';width:5px;height:5px;background:var(--orange);border-radius:50%;flex-shrink:0;margin-top:.44rem}
 
+.ws-list{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.ws-list li{
+  display:flex;align-items:flex-start;gap:.6rem;
+  font-size:.95rem;color:var(--body);line-height:1.45;font-weight:500;
+}
+.ws-list li::before{
+  content:'✓';width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--blue-mid));
+  color:#fff;font-size:.6rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:.15rem;
+}
+.ws-card--featured .ws-list li::before{background:linear-gradient(135deg,var(--orange),var(--orange-deep))}
 .ws-card__cta{
-  display:block;margin:0 1.5rem 1.5rem;text-align:center;
+  display:block;margin:0 1.4rem 1.4rem;text-align:center;
   padding:.65rem;border-radius:var(--r);
   font-size:.85rem;font-weight:700;letter-spacing:.04em;text-decoration:none;
   border:2px solid var(--blue);color:var(--blue);
@@ -564,18 +577,18 @@ a{color:inherit}
 .ws-card--featured .ws-card__cta:hover{background:var(--orange-deep);border-color:var(--orange-deep)}
 
 .conf-p-strip{
-  margin-top:1.25rem;background:var(--surface);border:1.5px solid var(--border);
+  margin-top:1.5rem;background:linear-gradient(135deg,#0D1A35 0%,#1A3460 100%);border:none;
   border-radius:var(--rl);padding:1.5rem;
   display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:center;
   transition:border-color .2s,box-shadow .2s,transform .25s var(--ease);
 }
-.conf-p-strip:hover{border-color:var(--blue-light);box-shadow:0 8px 32px rgba(37,99,181,.1);transform:translateY(-3px)}
-.conf-p-icon{font-size:2rem}
-.conf-p-name{font-family:var(--ff-d);font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.25rem}
-.conf-p-detail{font-size:.83rem;color:var(--muted);line-height:1.5}
+.conf-p-strip:hover{box-shadow:0 16px 48px rgba(37,99,181,.25);transform:translateY(-4px)}
+.conf-p-icon{font-size:2.2rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.conf-p-name{font-family:var(--ff-d);font-size:1.3rem;font-weight:700;color:#E8EDF5;margin-bottom:.3rem}
+.conf-p-detail{font-size:.9rem;color:#8FA3C4;line-height:1.5}
 .conf-p-price{text-align:right;white-space:nowrap}
-.conf-p-amt{font-family:var(--ff-d);font-size:1.7rem;font-weight:700;color:var(--ink);display:block;line-height:1;font-variant-numeric:tabular-nums}
-.conf-p-unit{font-size:.73rem;color:var(--muted)}
+.conf-p-amt{font-family:var(--ff-d);font-size:2rem;font-weight:700;color:#fff;display:block;line-height:1;font-variant-numeric:tabular-nums}
+.conf-p-unit{font-size:.78rem;color:#8FA3C4;margin-top:.2rem;display:block}
 
 /* ── LOCATION ───────────────────────────────────── */
 .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
@@ -1232,62 +1245,91 @@ footer a:hover{color:var(--orange)}
     <h2 class="sec__heading reveal" id="pricing-heading">Simple, honest pricing</h2>
     <p class="sec__intro reveal">No hidden fees. No annual commitments unless you want one. Pick what fits and scale as you grow.</p>
     <div class="pricing-grid">
+
+      <!-- HOT DESK -->
       <div class="ws-card reveal reveal-d1">
+        <div class="ws-card__photo">
+          <img src="images/gallery/DSC07116.JPG" alt="Hot desk workspace" loading="lazy">
+          <div class="ws-card__photo-overlay"></div>
+          <span class="ws-card__photo-tag">💺 Open Floor</span>
+          <span class="ws-card__photo-price">₹5,500</span>
+        </div>
         <div class="ws-card__head">
-          <span class="ws-icon">💺</span>
           <div class="ws-name">Hot Desk</div>
-          <div class="ws-cap"><strong>78 seats</strong> available</div>
+          <div class="ws-cap"><strong>78 seats</strong> available · per seat / month</div>
         </div>
         <div class="ws-card__body">
-          <div><div class="ws-price"><span class="ws-price__amt">₹5,500</span><span class="ws-price__unit">/ seat / month</span></div><div class="ws-price__gst">+ 18% GST</div></div>
+          <div>
+            <div class="ws-price"><span class="ws-price__amt">₹5,500</span><span class="ws-price__unit">/ seat / month</span></div>
+            <div class="ws-price__gst">+ 18% GST</div>
+          </div>
           <hr class="ws-hr">
           <ul class="ws-list">
             <li>Any desk, any day — full flexibility</li>
-            <li>1 Gbps WiFi & LAN at every seat</li>
-            <li>Cafeteria & game zone access</li>
-            <li>Front desk & security support</li>
+            <li>1 Gbps WiFi &amp; LAN at every seat</li>
+            <li>Cafeteria &amp; game zone access</li>
+            <li>Front desk &amp; security support</li>
           </ul>
         </div>
         <a href="#bookForm" class="ws-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Enquire Now</a>
       </div>
 
+      <!-- PRIVATE CABIN (featured) -->
       <div class="ws-card ws-card--featured reveal reveal-d2">
+        <div class="ws-card__photo">
+          <img src="images/gallery/DSC07123.JPG" alt="Private MD cabin" loading="lazy">
+          <div class="ws-card__photo-overlay"></div>
+          <span class="ws-card__photo-tag">🚪 MD Cabin</span>
+          <span class="ws-card__photo-price">₹20,000</span>
+        </div>
         <div class="ws-card__head">
-          <span class="ws-icon">🚪</span>
           <div class="ws-name">Private Cabin (MD)</div>
-          <div class="ws-cap"><strong>5 cabins</strong> · 3 seats each</div>
+          <div class="ws-cap"><strong>5 cabins</strong> · 3 seats each · ≈ ₹6,667/seat</div>
         </div>
         <div class="ws-card__body">
-          <div><div class="ws-price"><span class="ws-price__amt">₹20,000</span><span class="ws-price__unit">/ cabin / month</span></div><div class="ws-price__gst">+ GST &nbsp;·&nbsp; ≈ ₹6,667 per seat</div></div>
+          <div>
+            <div class="ws-price"><span class="ws-price__amt">₹20,000</span><span class="ws-price__unit">/ cabin / month</span></div>
+            <div class="ws-price__gst">+ GST</div>
+          </div>
           <hr class="ws-hr">
           <ul class="ws-list">
             <li>Fully enclosed executive cabin</li>
-            <li>Premium furniture & interiors</li>
-            <li>Enhanced privacy & acoustics</li>
-            <li>Conference room access</li>
+            <li>Premium furniture &amp; interiors</li>
+            <li>Enhanced privacy &amp; acoustics</li>
+            <li>Conference room access included</li>
           </ul>
         </div>
         <a href="#bookForm" class="ws-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Enquire Now</a>
       </div>
 
+      <!-- TEAM CABIN -->
       <div class="ws-card reveal reveal-d3">
+        <div class="ws-card__photo">
+          <img src="images/gallery/DSC07141.JPG" alt="Team cabin workspace" loading="lazy">
+          <div class="ws-card__photo-overlay"></div>
+          <span class="ws-card__photo-tag">👥 Team Space</span>
+          <span class="ws-card__photo-price">₹8,000</span>
+        </div>
         <div class="ws-card__head">
-          <span class="ws-icon">👥</span>
           <div class="ws-name">Team Cabin</div>
-          <div class="ws-cap"><strong>8 cabins</strong> · 4 to 14 seats</div>
+          <div class="ws-cap"><strong>8 cabins</strong> · 4 to 14 seats · per seat / month</div>
         </div>
         <div class="ws-card__body">
-          <div><div class="ws-price"><span class="ws-price__amt">₹8,000</span><span class="ws-price__unit">/ seat / month</span></div><div class="ws-price__gst">+ 18% GST</div></div>
+          <div>
+            <div class="ws-price"><span class="ws-price__amt">₹8,000</span><span class="ws-price__unit">/ seat / month</span></div>
+            <div class="ws-price__gst">+ 18% GST</div>
+          </div>
           <hr class="ws-hr">
           <ul class="ws-list">
-            <li>4-seat × 2 &nbsp;|&nbsp; 5-seat × 3</li>
-            <li>10-seat × 1 &nbsp;|&nbsp; 12-seat × 1 &nbsp;|&nbsp; 14-seat × 1</li>
-            <li>Whiteboard & dedicated LAN</li>
+            <li>Cabins: 4×2 · 5×3 · 10, 12 &amp; 14 seat</li>
+            <li>Whiteboard &amp; dedicated LAN</li>
             <li>Fully enclosed, team-ready</li>
+            <li>Flexible seat scaling</li>
           </ul>
         </div>
         <a href="#bookForm" class="ws-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Enquire Now</a>
       </div>
+
     </div>
 
     <div class="conf-p-strip reveal">
@@ -1892,6 +1934,9 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
+
+
 
 
 
