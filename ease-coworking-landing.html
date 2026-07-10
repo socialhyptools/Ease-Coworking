@@ -1,0 +1,982 @@
+
+<title>Ease Coworking — Premium Workspace in Teynampet, Chennai</title>
+<style>
+/* ── TOKENS ──────────────────────────────────────────────── */
+:root {
+  /* Brand blue — from logo "EASE" text & icon */
+  --blue:        #2563B5;
+  --blue-deep:   #1A4A96;
+  --blue-light:  #BDD2F4;
+  --blue-glow:   rgba(37,99,181,0.12);
+
+  /* Brand orange — from logo accent shapes */
+  --orange:      #F07535;
+  --orange-deep: #D45F1E;
+  --orange-light:#FDDEC8;
+  --orange-glow: rgba(240,117,53,0.12);
+
+  --ink:         #0F1520;
+  --body-text:   #353C4A;
+  --muted:       #6B7280;
+  --ground:      #F4F6FA;
+  --surface:     #FFFFFF;
+  --border:      #DDE3EE;
+
+  --ff-display:  Georgia, "Times New Roman", "Palatino Linotype", serif;
+  --ff-ui:       -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  --r:  4px;
+  --rl: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:       #E8EDF5;
+    --body-text: #B8C0CC;
+    --muted:     #7A8494;
+    --ground:    #0A0F1A;
+    --surface:   #111828;
+    --border:    #1E2A3E;
+  }
+}
+:root[data-theme="dark"] {
+  --ink:       #E8EDF5;
+  --body-text: #B8C0CC;
+  --muted:     #7A8494;
+  --ground:    #0A0F1A;
+  --surface:   #111828;
+  --border:    #1E2A3E;
+}
+:root[data-theme="light"] {
+  --ink:       #0F1520;
+  --body-text: #353C4A;
+  --muted:     #6B7280;
+  --ground:    #F4F6FA;
+  --surface:   #FFFFFF;
+  --border:    #DDE3EE;
+}
+
+/* ── RESET ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--ff-ui);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--body-text);
+  background: var(--ground);
+}
+
+/* ── STICKY TOP BAR ──────────────────────────────────────── */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #070E1C;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.5rem;
+  gap: 1rem;
+  box-shadow: 0 1px 0 rgba(37,99,181,0.35);
+}
+.top-bar__brand {
+  font-family: var(--ff-display);
+  font-size: 1.05rem;
+  color: var(--blue-light);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.top-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.top-bar__urgency {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--orange-light);
+  opacity: 0.8;
+}
+.top-bar__phone {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #E8EDF5;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.top-bar__phone:hover { color: var(--orange); }
+.top-bar__phone-icon {
+  width: 18px; height: 18px;
+  background: var(--orange);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ── HERO ────────────────────────────────────────────────── */
+.hero {
+  background: #0D1A35;
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 1.5rem 7rem;
+}
+/* Dot grid — brand-blue dots */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(37,99,181,0.22) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+/* Curved wave into ground */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 72px;
+  background: var(--ground);
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+.hero__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--orange);
+  border-bottom: 1px solid rgba(240,117,53,0.5);
+  padding-bottom: 3px;
+  margin-bottom: 1.1rem;
+}
+
+.hero__title {
+  font-family: var(--ff-display);
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.12;
+  color: #E8EDF5;
+  text-wrap: balance;
+  margin-bottom: 1.4rem;
+}
+.hero__title em {
+  font-style: italic;
+  color: var(--orange);
+}
+
+.hero__sub {
+  font-size: 1.05rem;
+  color: #8FA3C4;
+  max-width: 460px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.chip {
+  font-size: 0.78rem;
+  color: #B8C8E4;
+  background: rgba(37,99,181,0.12);
+  border: 1px solid rgba(37,99,181,0.28);
+  padding: 0.3rem 0.75rem;
+  border-radius: 2px;
+}
+
+/* ── LEAD FORM CARD ──────────────────────────────────────── */
+.form-card {
+  background: var(--surface);
+  border-radius: var(--rl);
+  padding: 2rem 1.75rem;
+  box-shadow: 0 24px 72px rgba(7,14,28,0.55), 0 0 0 1px rgba(37,99,181,0.15);
+}
+.form-card__title {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.form-card__sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+.form-card__sub strong {
+  color: var(--blue-deep);
+  font-weight: 600;
+}
+
+.fg { margin-bottom: 0.9rem; }
+.fg label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.fg input,
+.fg select {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  padding: 0.65rem 0.85rem;
+  font-family: var(--ff-ui);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--surface);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.fg input:focus,
+.fg select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
+.fg select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.2rem;
+}
+
+/* Primary form button — orange for high conversion */
+.btn-orange {
+  width: 100%;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  font-family: var(--ff-ui);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: background 0.18s, transform 0.12s;
+  margin-top: 0.25rem;
+}
+.btn-orange:hover { background: var(--orange-deep); transform: translateY(-1px); }
+.btn-orange:active { transform: translateY(0); }
+.btn-orange:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+.form-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.73rem;
+  color: var(--muted);
+  margin-top: 0.65rem;
+}
+
+/* ── STATS BAR ───────────────────────────────────────────── */
+.stats-bar {
+  background: var(--blue);
+  padding: 1.25rem 1.5rem;
+}
+.stats-bar__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.stat { text-align: center; }
+.stat__num {
+  font-family: var(--ff-display);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.65);
+  margin-top: 0.2rem;
+}
+
+/* ── SHARED SECTION WRAPPER ──────────────────────────────── */
+.sec {
+  padding: 5rem 1.5rem;
+}
+.sec--alt { background: var(--surface); }
+.sec--dark { background: #0D1A35; }
+.sec__inner { max-width: 1080px; margin: 0 auto; }
+
+.sec__eyebrow {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  display: block;
+  margin-bottom: 0.55rem;
+}
+.sec--dark .sec__eyebrow { color: var(--orange); }
+
+.sec__heading {
+  font-family: var(--ff-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 400;
+  color: var(--ink);
+  text-wrap: balance;
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+.sec--dark .sec__heading { color: #E8EDF5; }
+
+.sec__intro {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 540px;
+  margin-bottom: 3rem;
+  line-height: 1.7;
+}
+.sec--dark .sec__intro { color: #8FA3C4; }
+
+/* ── WHY CARDS ───────────────────────────────────────────── */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+.why-card {
+  padding: 1.5rem;
+  background: var(--ground);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 var(--r) var(--r) 0;
+  transition: box-shadow 0.2s;
+}
+.sec--alt .why-card { background: var(--ground); }
+.why-card:hover { box-shadow: 0 4px 20px rgba(37,99,181,0.1); }
+
+.why-card__icon {
+  width: 36px; height: 36px;
+  background: var(--blue-glow);
+  border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.85rem;
+}
+.why-card h4 {
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.why-card p {
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ── AMENITIES ───────────────────────────────────────────── */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 0.75rem;
+}
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-size: 0.86rem;
+  color: var(--body-text);
+  transition: border-color 0.18s;
+}
+.amenity:hover { border-color: var(--blue); }
+.amenity__dot {
+  width: 6px; height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── LOCATION ────────────────────────────────────────────── */
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.location-info { display: flex; flex-direction: column; gap: 1.4rem; }
+
+.info-row { display: flex; gap: 1rem; align-items: flex-start; }
+.info-row__icon {
+  width: 32px; height: 32px;
+  background: rgba(240,117,53,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+.info-row__label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--orange-light);
+  margin-bottom: 0.2rem;
+}
+.info-row__value {
+  font-size: 0.92rem;
+  color: #8FA3C4;
+  line-height: 1.55;
+}
+.info-row__value a {
+  color: var(--blue-light);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.info-row__value a:hover { color: var(--orange); }
+
+.map-wrap {
+  background: #08111F;
+  border-radius: var(--rl);
+  overflow: hidden;
+  border: 1px solid rgba(37,99,181,0.2);
+  aspect-ratio: 4/3;
+}
+#mapCanvas { display: block; width: 100%; height: 100%; }
+
+.btn-directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--r);
+  text-decoration: none;
+  transition: background 0.18s;
+}
+.btn-directions:hover { background: var(--orange-deep); }
+.btn-directions:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+/* ── FINAL CTA ───────────────────────────────────────────── */
+.final-cta {
+  background: var(--orange);
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+.final-cta h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 400;
+  color: #fff;
+  text-wrap: balance;
+  margin-bottom: 0.65rem;
+  line-height: 1.18;
+}
+.final-cta p {
+  color: rgba(255,255,255,0.78);
+  font-size: 1rem;
+  margin-bottom: 2.25rem;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-white {
+  background: #fff;
+  color: var(--orange-deep);
+  border: none;
+  padding: 0.9rem 2rem;
+  font-family: var(--ff-ui);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: var(--r);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.18s, color 0.18s;
+}
+.btn-white:hover { background: var(--orange-light); }
+.btn-white:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+.btn-outline-white {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.7);
+  padding: 0.9rem 2rem;
+  font-family: var(--ff-ui);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: var(--r);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background 0.18s, border-color 0.18s;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.btn-outline-white:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: #070E1C;
+  color: #3D5070;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+footer a { color: var(--blue-light); text-decoration: none; }
+footer a:hover { color: var(--orange); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .hero__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .location-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero { padding: 3.5rem 1.25rem 6rem; }
+  .sec { padding: 3.5rem 1.25rem; }
+}
+@media (max-width: 560px) {
+  .top-bar__urgency { display: none; }
+  .stats-bar__inner { gap: 2rem; }
+  .stat__num { font-size: 1.5rem; }
+}
+
+/* ── MOTION ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+
+<!-- Sticky top bar -->
+<header class="top-bar" role="banner">
+  <span class="top-bar__brand">Ease Coworking</span>
+  <div class="top-bar__right">
+    <span class="top-bar__urgency">⚡ Limited seats available</span>
+    <a href="tel:+919677031457" class="top-bar__phone" aria-label="Call Ease Coworking">
+      <span class="top-bar__phone-icon" aria-hidden="true">☎</span>
+      +91 96770 31457
+    </a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" aria-label="Hero">
+  <div class="hero__inner">
+    <div class="hero__text">
+      <span class="hero__eyebrow">Teynampet · Chennai · 6th Floor, JVL Plaza</span>
+      <h1 class="hero__title">
+        Your office.<br>
+        <em>On your terms.</em>
+      </h1>
+      <p class="hero__sub">
+        Premium coworking built for Chennai's startups, freelancers, and growing teams —
+        with architect-designed interiors and corporate-grade infrastructure.
+      </p>
+      <div class="hero__chips">
+        <span class="chip">No long-term lock-in</span>
+        <span class="chip">Day pass · Dedicated desk · Private cabin</span>
+        <span class="chip">Available from Day One</span>
+      </div>
+    </div>
+
+    <!-- Lead Form -->
+    <div class="form-card" id="bookForm">
+      <h2 class="form-card__title">Book a Free Tour</h2>
+      <p class="form-card__sub">We'll call back <strong>within 30 minutes.</strong></p>
+
+      <form id="leadForm" novalidate onsubmit="handleSubmit(event)">
+        <div class="fg">
+          <label for="f-name">Your Name</label>
+          <input type="text" id="f-name" name="name" placeholder="Rahul Sharma" required autocomplete="name">
+        </div>
+        <div class="fg">
+          <label for="f-phone">Phone Number</label>
+          <input type="tel" id="f-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel">
+        </div>
+        <div class="fg">
+          <label for="f-seats">How many seats?</label>
+          <select id="f-seats" name="seats">
+            <option value="1">Just me (1 seat)</option>
+            <option value="2-5">Small team (2–5)</option>
+            <option value="6-15">Growing team (6–15)</option>
+            <option value="15+">Large team (15+)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="f-type">Workspace type</label>
+          <select id="f-type" name="type">
+            <option value="hot-desk">Flexible / Hot Desk</option>
+            <option value="dedicated">Dedicated Desk</option>
+            <option value="cabin">Private Cabin</option>
+            <option value="conference">Conference Room</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-orange" id="submitBtn">Get My Free Tour →</button>
+        <p class="form-trust" aria-label="Privacy notice">
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
+            <rect x="1" y="5" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M3.5 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          No spam. We'll only call you once.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Stats bar -->
+<div class="stats-bar" role="region" aria-label="Key numbers">
+  <div class="stats-bar__inner">
+    <div class="stat">
+      <div class="stat__num">6th</div>
+      <div class="stat__label">Floor, JVL Plaza</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">1 Gbps</div>
+      <div class="stat__label">High-Speed Internet</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">24 / 7</div>
+      <div class="stat__label">Secure Access</div>
+    </div>
+    <div class="stat">
+      <div class="stat__num">100%</div>
+      <div class="stat__label">Flexible Plans</div>
+    </div>
+  </div>
+</div>
+
+<!-- Why Ease -->
+<section class="sec sec--alt" aria-labelledby="why-heading">
+  <div class="sec__inner">
+    <span class="sec__eyebrow">Why choose Ease</span>
+    <h2 class="sec__heading" id="why-heading">Built for people who mean business</h2>
+    <p class="sec__intro">Not just a desk — a complete work environment designed by an M.Arch professional for productivity, collaboration, and growth.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">🏗️</div>
+        <h4>Purposeful Design</h4>
+        <p>Every corner optimized by an architect for ergonomics, acoustics, and focus. You'll feel the difference the moment you walk in.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">⚡</div>
+        <h4>Corporate Infrastructure</h4>
+        <p>1 Gbps WiFi, LAN, UPS power backup, and smart board conference rooms — the full stack, without a corporate lease.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">🤝</div>
+        <h4>Thriving Community</h4>
+        <p>Work alongside Chennai's fastest-growing startups and freelancers. Ease is built around connection, not isolation.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">📈</div>
+        <h4>Scales With You</h4>
+        <p>Hot desk today, private cabin next month. Flexible plans let you expand at your pace, on your schedule.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Amenities -->
+<section class="sec" aria-labelledby="amenities-heading">
+  <div class="sec__inner">
+    <span class="sec__eyebrow">Amenities</span>
+    <h2 class="sec__heading" id="amenities-heading">Everything you need. Nothing you don't.</h2>
+    <p class="sec__intro">Premium facilities as standard — no extras, no hidden fees.</p>
+    <div class="amenities-grid" role="list">
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>High-Speed WiFi & LAN</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Private Cabins</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Conference Rooms</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Smart Board Facilities</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Flexible Hot Desks</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Discussion Rooms</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Cafeteria</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Game Zone</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>24-Hour Secure Access</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Front Desk Support</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>UPS Power Backup</div>
+      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Premium Interiors</div>
+    </div>
+  </div>
+</section>
+
+<!-- Location -->
+<section class="sec sec--dark" aria-labelledby="location-heading">
+  <div class="sec__inner">
+    <span class="sec__eyebrow">Find us</span>
+    <h2 class="sec__heading" id="location-heading">Right in the heart of Chennai</h2>
+    <p class="sec__intro">Teynampet is one of Chennai's most connected business corridors — easy access by Metro, road, and cab.</p>
+    <div class="location-grid">
+      <div class="location-info">
+        <div class="info-row">
+          <div class="info-row__icon" aria-hidden="true">📍</div>
+          <div>
+            <div class="info-row__label">Address</div>
+            <div class="info-row__value">6th Floor, JVL Plaza<br>Teynampet, Chennai – 600018</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-row__icon" aria-hidden="true">📞</div>
+          <div>
+            <div class="info-row__label">Call Us</div>
+            <div class="info-row__value">
+              <a href="tel:+919677031457">+91 96770 31457</a><br>
+              <a href="tel:+919840962554">+91 98409 62554</a><br>
+              <a href="tel:+919884105544">+91 98841 05544</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-row__icon" aria-hidden="true">✉️</div>
+          <div>
+            <div class="info-row__label">Email</div>
+            <div class="info-row__value">
+              <a href="mailto:easecoworking@gmail.com">easecoworking@gmail.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-row__icon" aria-hidden="true">🕐</div>
+          <div>
+            <div class="info-row__label">Working Hours</div>
+            <div class="info-row__value">Monday – Saturday: 9 AM – 7 PM<br>24-hour access plans available</div>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=JVL+Plaza+Teynampet+Chennai+600018" target="_blank" rel="noopener" class="btn-directions">
+          Get Directions →
+        </a>
+      </div>
+
+      <div class="map-wrap" aria-label="Map showing Ease Coworking location at JVL Plaza, Teynampet">
+        <canvas id="mapCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta" aria-label="Call to action">
+  <h2>Ready to work from Chennai's best coworking space?</h2>
+  <p>Book a free tour — no commitment, no pressure. Just come see it.</p>
+  <div class="cta-row">
+    <a href="tel:+919677031457" class="btn-white">☎ Call Us Now</a>
+    <a href="#bookForm" class="btn-outline-white" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Free Tour</a>
+  </div>
+</section>
+
+<footer role="contentinfo">
+  <p>© 2025 Ease Coworking &nbsp;·&nbsp; 6th Floor, JVL Plaza, Teynampet, Chennai 600018</p>
+  <p style="margin-top:0.3rem">
+    <a href="https://www.easecoworking.in" target="_blank" rel="noopener">easecoworking.in</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:easecoworking@gmail.com">easecoworking@gmail.com</a>
+  </p>
+</footer>
+
+<script>
+/* ── MAP CANVAS ──────────────────────────────────────────── */
+(function drawMap() {
+  const canvas = document.getElementById('mapCanvas');
+  if (!canvas) return;
+
+  function render() {
+    const wrap = canvas.parentElement;
+    const dpr  = window.devicePixelRatio || 1;
+    const W    = wrap.clientWidth;
+    const H    = wrap.clientHeight;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    /* bg — deep navy */
+    ctx.fillStyle = '#08111F';
+    ctx.fillRect(0, 0, W, H);
+
+    const colW = W / 8;
+    const rowH = H / 6;
+
+    /* background city blocks */
+    ctx.fillStyle = '#0E1C30';
+    const blocks = [
+      [0, 0, 3, 2], [4, 0, 4, 2],
+      [0, 3, 3, 3], [4, 3, 4, 3],
+      [0, 0, 3, 1], [5, 1, 2, 1],
+    ];
+    blocks.forEach(([c, r, cw, rh]) => {
+      ctx.fillRect(c * colW + 2, r * rowH + 2, cw * colW - 4, rh * rowH - 4);
+    });
+
+    /* grid road lines */
+    ctx.strokeStyle = '#152035';
+    ctx.lineWidth = 1;
+    for (let c = 1; c < 8; c++) {
+      ctx.beginPath(); ctx.moveTo(c * colW, 0); ctx.lineTo(c * colW, H); ctx.stroke();
+    }
+    for (let r = 1; r < 6; r++) {
+      ctx.beginPath(); ctx.moveTo(0, r * rowH); ctx.lineTo(W, r * rowH); ctx.stroke();
+    }
+
+    /* main roads — blue tint */
+    const mainRoadY = rowH * 2.8;
+    const mainRoadX = colW * 3.5;
+
+    ctx.strokeStyle = '#1E3358';
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(0, mainRoadY); ctx.lineTo(W, mainRoadY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(mainRoadX, 0); ctx.lineTo(mainRoadX, H); ctx.stroke();
+
+    /* road labels */
+    ctx.font = '9px -apple-system, system-ui, sans-serif';
+    ctx.fillStyle = '#2D4870';
+    ctx.textAlign = 'center';
+    ctx.fillText('Anna Salai', W * 0.18, mainRoadY - 7);
+    ctx.fillText('Teynampet Main Rd', W * 0.72, mainRoadY - 7);
+
+    const pinX = mainRoadX;
+    const pinY = mainRoadY;
+
+    /* orange glow halo */
+    const grd = ctx.createRadialGradient(pinX, pinY, 4, pinX, pinY, 55);
+    grd.addColorStop(0, 'rgba(240,117,53,0.35)');
+    grd.addColorStop(1, 'rgba(240,117,53,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(pinX - 55, pinY - 55, 110, 110);
+
+    /* outer ring */
+    ctx.beginPath();
+    ctx.arc(pinX, pinY, 22, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(240,117,53,0.25)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    /* pin circle — orange */
+    ctx.beginPath();
+    ctx.arc(pinX, pinY, 10, 0, Math.PI * 2);
+    ctx.fillStyle = '#F07535';
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(pinX, pinY, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    /* label bubble */
+    const lbl = 'JVL Plaza, Teynampet';
+    ctx.font = 'bold 10px -apple-system, system-ui, sans-serif';
+    const lw  = ctx.measureText(lbl).width + 18;
+    const lx  = Math.min(pinX - lw / 2, W - lw - 8);
+    const ly  = pinY - 34;
+
+    ctx.fillStyle = '#F07535';
+    roundRect(ctx, lx, ly - 14, lw, 20, 3);
+    ctx.fill();
+
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'left';
+    ctx.fillText(lbl, lx + 9, ly - 1);
+
+    /* triangle pointer */
+    ctx.beginPath();
+    ctx.moveTo(pinX - 5, ly + 6);
+    ctx.lineTo(pinX + 5, ly + 6);
+    ctx.lineTo(pinX, ly + 12);
+    ctx.fillStyle = '#F07535';
+    ctx.fill();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  render();
+  window.addEventListener('resize', render);
+})();
+
+/* ── FORM SUBMIT ──────────────────────────────────────────── */
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn   = document.getElementById('submitBtn');
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+
+  if (!name || !phone) {
+    alert('Please fill in your name and phone number.');
+    return;
+  }
+
+  const seats = document.getElementById('f-seats').selectedOptions[0].text;
+  const type  = document.getElementById('f-type').selectedOptions[0].text;
+
+  btn.textContent  = '✓ Request received!';
+  btn.style.background = '#3A8A50';
+  btn.disabled = true;
+
+  const msg = encodeURIComponent(
+    `Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nSeats: ${seats}\nType: ${type}\n\nPlease call me back. Thank you!`
+  );
+  setTimeout(() => {
+    window.open('https://wa.me/919677031457?text=' + msg, '_blank');
+  }, 600);
+}
+</script>
