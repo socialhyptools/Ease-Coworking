@@ -553,8 +553,8 @@ footer a:hover{color:var(--orange)}
 .popup{
   background:var(--surface);
   border-radius:var(--rxl);
-  width:100%;max-width:520px;max-height:90vh;
-  overflow-y:auto;
+  width:100%;max-width:520px;
+  overflow:hidden;
   box-shadow:0 40px 100px rgba(7,14,28,.55),0 0 0 1px rgba(37,99,181,.18);
   transform:translateY(28px) scale(.97);
   transition:transform .4s var(--ease),opacity .35s var(--ease);
@@ -580,6 +580,7 @@ footer a:hover{color:var(--orange)}
 .popup__close:hover{background:rgba(255,255,255,.22);transform:rotate(90deg)}
 .popup__close:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
 
+.popup__header{padding:1.1rem 1.5rem 1rem}
 .popup__badge{
   display:inline-flex;align-items:center;gap:.4rem;
   background:rgba(240,117,53,.2);border:1px solid rgba(240,117,53,.4);
@@ -588,23 +589,23 @@ footer a:hover{color:var(--orange)}
   padding:.22rem .7rem;border-radius:20px;margin-bottom:.85rem;
 }
 .popup__title{
-  font-family:var(--ff-d);font-size:1.4rem;font-weight:400;
+  font-family:var(--ff-d);font-size:1.15rem;font-weight:600;
   color:#E8EDF5;line-height:1.2;margin-bottom:.35rem;text-wrap:balance;
 }
-.popup__sub{font-size:.83rem;color:#8FA3C4;line-height:1.55}
+.popup__sub{font-size:.76rem;color:#8FA3C4;line-height:1.4;margin-top:.2rem}
 .popup__sub strong{color:var(--orange-deep);font-weight:600}
 
-.popup__body{padding:1.75rem 2rem 2rem}
+.popup__body{padding:1rem 1.5rem 1rem}
 
-.popup .fg{margin-bottom:.85rem}
+.popup .fg{margin-bottom:.55rem}
 .popup .fg label{
-  display:block;font-size:.68rem;text-transform:uppercase;
+  display:block;font-size:.62rem;text-transform:uppercase;
   letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem;
 }
 .popup .fg input,
 .popup .fg select{
   width:100%;border:1.5px solid var(--border);border-radius:var(--r);
-  padding:.65rem .9rem;font-family:var(--ff-u);font-size:.95rem;
+  padding:.5rem .75rem;font-family:var(--ff-u);font-size:.88rem;
   color:var(--ink);background:var(--surface);outline:none;
   transition:border-color .18s,box-shadow .18s;
   appearance:none;-webkit-appearance:none;
@@ -624,7 +625,7 @@ footer a:hover{color:var(--orange)}
 
 .popup-submit{
   width:100%;background:var(--orange);color:#fff;border:none;
-  padding:.92rem 1.5rem;font-family:var(--ff-u);font-size:.97rem;font-weight:700;
+  padding:.72rem 1.5rem;font-family:var(--ff-u);font-size:.9rem;font-weight:700;
   letter-spacing:.04em;border-radius:var(--r);cursor:pointer;
   transition:background .18s,transform .12s,box-shadow .18s;
   box-shadow:0 4px 18px rgba(240,117,53,.38);margin-top:.5rem;
@@ -635,7 +636,7 @@ footer a:hover{color:var(--orange)}
 
 .popup-trust{
   display:flex;align-items:center;justify-content:center;
-  gap:.35rem;font-size:.72rem;color:var(--muted);margin-top:.65rem;
+  gap:.35rem;font-size:.66rem;color:var(--muted);margin-top:.35rem;
 }
 
 /* Success state */
@@ -1271,7 +1272,7 @@ footer a:hover{color:var(--orange)}
     <div class="popup__header">
       <button class="popup__close" id="popupClose" aria-label="Close form">✕</button>
       <div class="popup__badge">📍 Ease Coworking · Teynampet</div>
-      <h2 class="popup__title" id="popupTitle">Get a personalised quote<br>for your team</h2>
+      <h2 class="popup__title" id="popupTitle">Get a personalised quote for your team</h2>
       <p class="popup__sub">Fill in the details below — we'll <strong>call you back within 30 minutes</strong> with pricing and availability.</p>
     </div>
 
@@ -1739,6 +1740,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
