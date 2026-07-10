@@ -31,57 +31,8 @@
   --r: 5px; --rl: 14px; --rxl: 22px;
   --ease: cubic-bezier(.22,1,.36,1);
 
-  /* Dark-section / hero vars — override per theme */
-  --hero-bg:       #0D1A35;
-  --hero-text:     #E8EDF5;
-  --hero-sub:      #8FA3C4;
-  --hero-stat:     #E8EDF5;
-  --hero-stat-lbl: #5A7AA8;
-  --hero-chip-bg:  rgba(37,99,181,.14);
-  --hero-chip-bd:  rgba(37,99,181,.3);
-  --hero-chip-clr: #B8C8E4;
-  --topbar-bg:     #070E1C;
-  --topbar-bd:     rgba(37,99,181,.3);
-  --dark-sec-bg:   #0D1A35;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink:      #E8EDF5; --body: #B8C0CC; --muted: #7A8494;
-    --ground:   #0A0F1A; --surface: #111828; --border: #1E2A3E;
-    --blue-pale: #0D1828; --orange-pale: #1C0F08;
-  }
-}
-@media (prefers-color-scheme: light) {
-  :root {
-    --hero-bg:       linear-gradient(145deg,#EBF2FD 0%,#F4F6FA 60%,#FEF3EB 100%);
-    --hero-text:     #0F1520;
-    --hero-sub:      #4A5568;
-    --hero-stat:     #0F1520;
-    --hero-stat-lbl: #6B7280;
-    --hero-chip-bg:  rgba(37,99,181,.08);
-    --hero-chip-bd:  rgba(37,99,181,.22);
-    --hero-chip-clr: #2563B5;
-    --topbar-bg:     #FFFFFF;
-    --topbar-bd:     #DDE3EE;
-    --dark-sec-bg:   #EBF2FD;
-  }
-}
-:root[data-theme="dark"] {
-  --ink:#E8EDF5;--body:#B8C0CC;--muted:#7A8494;
-  --ground:#0A0F1A;--surface:#111828;--border:#1E2A3E;
-  --blue-pale:#0D1828;--orange-pale:#1C0F08;
-  --hero-bg:#0D1A35;
-  --hero-text:#E8EDF5;--hero-sub:#8FA3C4;
-  --hero-stat:#E8EDF5;--hero-stat-lbl:#5A7AA8;
-  --hero-chip-bg:rgba(37,99,181,.14);--hero-chip-bd:rgba(37,99,181,.3);--hero-chip-clr:#B8C8E4;
-  --topbar-bg:#070E1C;--topbar-bd:rgba(37,99,181,.3);
-  --dark-sec-bg:#0D1A35;
-}
-:root[data-theme="light"] {
-  --ink:#0F1520;--body:#353C4A;--muted:#6B7280;
-  --ground:#F4F6FA;--surface:#FFFFFF;--border:#DDE3EE;
-  --blue-pale:#EBF2FD;--orange-pale:#FEF3EB;
-  --hero-bg:       linear-gradient(145deg,#EBF2FD 0%,#F4F6FA 60%,#FEF3EB 100%);
+  /* Section / hero vars */
+  --hero-bg:       linear-gradient(145deg,#EBF2FD 0%,#F4F8FF 55%,#FEF3EB 100%);
   --hero-text:     #0F1520;
   --hero-sub:      #4A5568;
   --hero-stat:     #0F1520;
@@ -93,7 +44,8 @@
   --topbar-bd:     #DDE3EE;
   --dark-sec-bg:   #EBF2FD;
 }
-
+}
+}
 /* ── RESET ──────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -116,8 +68,8 @@ a{color:inherit}
   display:flex;align-items:center;justify-content:space-between;
   padding:.6rem 1.5rem;gap:1rem;
   border-bottom:1px solid var(--topbar-bd);
+  box-shadow:0 1px 12px rgba(37,99,181,.08);
   backdrop-filter:blur(12px);
-  transition:background .3s,border-color .3s;
 }
 /* Logo in top bar */
 .top-bar__logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
@@ -126,7 +78,7 @@ a{color:inherit}
 .top-bar__right{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
 .top-bar__urgency{
   font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--orange-lt);opacity:.85;
+  color:var(--orange-deep);opacity:.9;
   display:flex;align-items:center;gap:.35rem;
 }
 .urgency-dot{
@@ -136,25 +88,16 @@ a{color:inherit}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .top-bar__phone{
   display:flex;align-items:center;gap:.4rem;
-  color:var(--ink);text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;
+  color:var(--blue-deep);text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;
   transition:color .15s;
 }
-.top-bar__phone:hover{color:var(--orange)}
+.top-bar__phone:hover{color:var(--orange-deep)}
 .phone-pill{
   background:var(--orange);color:#fff;
   border-radius:20px;padding:.18rem .55rem;
   font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
 }
-/* Theme toggle */
-.theme-toggle{
-  background:var(--hero-chip-bg);border:1px solid var(--hero-chip-bd);
-  color:var(--ink);border-radius:20px;padding:.32rem .8rem;
-  font-size:.78rem;font-weight:600;cursor:pointer;
-  display:flex;align-items:center;gap:.4rem;
-  transition:background .18s,border-color .18s,color .18s;
-  white-space:nowrap;
-}
-.theme-toggle:hover{background:var(--blue-pale);border-color:var(--blue)}
+
 
 /* ── HERO ───────────────────────────────────────── */
 .hero{
@@ -169,11 +112,11 @@ a{color:inherit}
   animation:orbFloat 10s ease-in-out infinite;
 }
 .orb-1{
-  width:500px;height:500px;background:rgba(37,99,181,.22);
+  width:500px;height:500px;background:rgba(37,99,181,.18);
   top:-160px;right:-80px;animation-delay:0s;
 }
 .orb-2{
-  width:350px;height:350px;background:rgba(240,117,53,.14);
+  width:350px;height:350px;background:rgba(240,117,53,.18);
   bottom:-80px;left:8%;animation-delay:-4s;
 }
 .orb-3{
@@ -255,7 +198,7 @@ a{color:inherit}
 .form-card{
   background:var(--surface);border-radius:var(--rxl);
   padding:2rem 1.75rem;
-  box-shadow:0 32px 80px rgba(7,14,28,.6),0 0 0 1px rgba(37,99,181,.18);
+  box-shadow:0 12px 48px rgba(37,99,181,.14),0 0 0 1.5px rgba(37,99,181,.15);
 }
 .form-card__title{font-family:var(--ff-d);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.3rem}
 .form-card__sub{font-size:.8rem;color:var(--muted);margin-bottom:1.4rem}
@@ -835,11 +778,7 @@ footer a:hover{color:var(--orange)}
       <span class="urgency-dot" aria-hidden="true"></span>
       Limited seats available
     </span>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
-      <span id="themeIcon">☀️</span>
-      <span id="themeLabel">Light</span>
-    </button>
-    <a href="tel:+919677031457" class="top-bar__phone" aria-label="Call Ease Coworking">
+<a href="tel:+919677031457" class="top-bar__phone" aria-label="Call Ease Coworking">
       <span class="phone-pill">Call Now</span>
       +91 96770 31457
     </a>
@@ -1836,6 +1775,10 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
+
+
+
 
 
 
