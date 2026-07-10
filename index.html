@@ -1,821 +1,584 @@
 
 <title>Ease Coworking — Premium Workspace in Teynampet, Chennai</title>
 <style>
-/* ── TOKENS ──────────────────────────────────────────────── */
+/* ── TOKENS ─────────────────────────────────────── */
 :root {
-  /* Brand blue — from logo "EASE" text & icon */
-  --blue:        #2563B5;
-  --blue-deep:   #1A4A96;
-  --blue-light:  #BDD2F4;
-  --blue-glow:   rgba(37,99,181,0.12);
+  --blue:       #2563B5;
+  --blue-deep:  #1A4A96;
+  --blue-mid:   #3B7FD4;
+  --blue-light: #BDD2F4;
+  --blue-pale:  #EBF2FD;
+  --blue-glow:  rgba(37,99,181,0.13);
 
-  /* Brand orange — from logo accent shapes */
   --orange:      #F07535;
   --orange-deep: #D45F1E;
-  --orange-light:#FDDEC8;
-  --orange-glow: rgba(240,117,53,0.12);
+  --orange-lt:   #FDDEC8;
+  --orange-pale: #FEF3EB;
+  --orange-glow: rgba(240,117,53,0.13);
 
-  --ink:         #0F1520;
-  --body-text:   #353C4A;
-  --muted:       #6B7280;
-  --ground:      #F4F6FA;
-  --surface:     #FFFFFF;
-  --border:      #DDE3EE;
+  --ink:      #0F1520;
+  --body:     #353C4A;
+  --muted:    #6B7280;
+  --ground:   #F4F6FA;
+  --surface:  #FFFFFF;
+  --border:   #DDE3EE;
 
-  --ff-display:  Georgia, "Times New Roman", "Palatino Linotype", serif;
-  --ff-ui:       -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-
-  --r:  4px;
-  --rl: 10px;
+  --ff-d: Georgia,"Times New Roman",serif;
+  --ff-u: -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --r: 5px; --rl: 14px; --rxl: 22px;
+  --ease: cubic-bezier(.22,1,.36,1);
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink:       #E8EDF5;
-    --body-text: #B8C0CC;
-    --muted:     #7A8494;
-    --ground:    #0A0F1A;
-    --surface:   #111828;
-    --border:    #1E2A3E;
+    --ink:      #E8EDF5; --body: #B8C0CC; --muted: #7A8494;
+    --ground:   #0A0F1A; --surface: #111828; --border: #1E2A3E;
+    --blue-pale: #0D1828; --orange-pale: #1C0F08;
   }
 }
 :root[data-theme="dark"] {
-  --ink:       #E8EDF5;
-  --body-text: #B8C0CC;
-  --muted:     #7A8494;
-  --ground:    #0A0F1A;
-  --surface:   #111828;
-  --border:    #1E2A3E;
+  --ink:#E8EDF5;--body:#B8C0CC;--muted:#7A8494;
+  --ground:#0A0F1A;--surface:#111828;--border:#1E2A3E;
+  --blue-pale:#0D1828;--orange-pale:#1C0F08;
 }
 :root[data-theme="light"] {
-  --ink:       #0F1520;
-  --body-text: #353C4A;
-  --muted:     #6B7280;
-  --ground:    #F4F6FA;
-  --surface:   #FFFFFF;
-  --border:    #DDE3EE;
+  --ink:#0F1520;--body:#353C4A;--muted:#6B7280;
+  --ground:#F4F6FA;--surface:#FFFFFF;--border:#DDE3EE;
+  --blue-pale:#EBF2FD;--orange-pale:#FEF3EB;
 }
 
-/* ── RESET ───────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+/* ── RESET ──────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-u);font-size:1rem;line-height:1.65;color:var(--body);background:var(--ground);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
 
-body {
-  font-family: var(--ff-ui);
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--body-text);
-  background: var(--ground);
-}
+/* ── SCROLL REVEAL ──────────────────────────────── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
+.reveal-d4{transition-delay:.32s}
 
-/* ── STICKY TOP BAR ──────────────────────────────────────── */
-.top-bar {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  background: #070E1C;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 1.5rem;
-  gap: 1rem;
-  box-shadow: 0 1px 0 rgba(37,99,181,0.35);
+/* ── TOP BAR ────────────────────────────────────── */
+.top-bar{
+  position:sticky;top:0;z-index:300;
+  background:#070E1C;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.6rem 1.5rem;gap:1rem;
+  border-bottom:1px solid rgba(37,99,181,.3);
+  backdrop-filter:blur(12px);
 }
-.top-bar__brand {
-  font-family: var(--ff-display);
-  font-size: 1.05rem;
-  color: var(--blue-light);
-  letter-spacing: 0.03em;
-  white-space: nowrap;
+.top-bar__brand{font-family:var(--ff-d);font-size:1.05rem;color:var(--blue-light);letter-spacing:.03em;white-space:nowrap}
+.top-bar__right{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.top-bar__urgency{
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--orange-lt);opacity:.85;
+  display:flex;align-items:center;gap:.35rem;
 }
-.top-bar__right {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  flex-wrap: wrap;
+.urgency-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--orange);
+  animation:blink 1.4s ease-in-out infinite;
 }
-.top-bar__urgency {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--orange-light);
-  opacity: 0.8;
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.top-bar__phone{
+  display:flex;align-items:center;gap:.4rem;
+  color:#E8EDF5;text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap;
+  transition:color .15s;
 }
-.top-bar__phone {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: #E8EDF5;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  transition: color 0.15s;
-}
-.top-bar__phone:hover { color: var(--orange); }
-.top-bar__phone-icon {
-  width: 18px; height: 18px;
-  background: var(--orange);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.6rem;
-  color: #fff;
-  flex-shrink: 0;
+.top-bar__phone:hover{color:var(--orange)}
+.phone-pill{
+  background:var(--orange);color:#fff;
+  border-radius:20px;padding:.18rem .55rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
 }
 
-/* ── HERO ────────────────────────────────────────────────── */
-.hero {
-  background: #0D1A35;
-  position: relative;
-  overflow: hidden;
-  padding: 5rem 1.5rem 7rem;
-}
-/* Dot grid — brand-blue dots */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(37,99,181,0.22) 1px, transparent 1px);
-  background-size: 30px 30px;
-  pointer-events: none;
-}
-/* Curved wave into ground */
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 0; right: 0;
-  height: 72px;
-  background: var(--ground);
-  clip-path: ellipse(60% 100% at 50% 100%);
+/* ── HERO ───────────────────────────────────────── */
+.hero{
+  background:#0D1A35;
+  position:relative;overflow:hidden;
+  padding:5.5rem 1.5rem 8rem;
 }
 
-.hero__inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 1;
+/* Animated gradient orbs */
+.orb{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;
+  animation:orbFloat 10s ease-in-out infinite;
+}
+.orb-1{
+  width:500px;height:500px;background:rgba(37,99,181,.22);
+  top:-160px;right:-80px;animation-delay:0s;
+}
+.orb-2{
+  width:350px;height:350px;background:rgba(240,117,53,.14);
+  bottom:-80px;left:8%;animation-delay:-4s;
+}
+.orb-3{
+  width:250px;height:250px;background:rgba(59,127,212,.18);
+  top:40%;left:42%;animation-delay:-7s;
+}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(30px,-25px) scale(1.05)}
+  66%{transform:translate(-20px,18px) scale(.95)}
 }
 
-.hero__eyebrow {
-  display: inline-block;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--orange);
-  border-bottom: 1px solid rgba(240,117,53,0.5);
-  padding-bottom: 3px;
-  margin-bottom: 1.1rem;
+/* Dot grid */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(37,99,181,.2) 1px,transparent 1px);
+  background-size:30px 30px;pointer-events:none;z-index:0;
+}
+/* Wave bottom */
+.hero::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;
+  height:80px;background:var(--ground);
+  clip-path:ellipse(62% 100% at 50% 100%);z-index:1;
 }
 
-.hero__title {
-  font-family: var(--ff-display);
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
-  font-weight: 400;
-  line-height: 1.12;
-  color: #E8EDF5;
-  text-wrap: balance;
-  margin-bottom: 1.4rem;
-}
-.hero__title em {
-  font-style: italic;
-  color: var(--orange);
+.hero__inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;
+  position:relative;z-index:2;
 }
 
-.hero__sub {
-  font-size: 1.05rem;
-  color: #8FA3C4;
-  max-width: 460px;
-  line-height: 1.7;
-  margin-bottom: 2rem;
+/* floating location badge */
+.hero__badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(240,117,53,.15);
+  border:1px solid rgba(240,117,53,.35);
+  border-radius:20px;padding:.3rem .85rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--orange-lt);
+  margin-bottom:1.25rem;
+  animation:badgeFloat 3s ease-in-out infinite;
+}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.badge-pin{font-size:.9rem}
+
+.hero__title{
+  font-family:var(--ff-d);
+  font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:400;
+  line-height:1.1;color:#E8EDF5;text-wrap:balance;
+  margin-bottom:1.4rem;
+}
+.hero__title em{font-style:italic;color:var(--orange)}
+
+.hero__sub{
+  font-size:1.05rem;color:#8FA3C4;max-width:460px;
+  line-height:1.75;margin-bottom:2rem;
 }
 
-.hero__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+/* quick stats in hero */
+.hero__quickstats{
+  display:flex;gap:1.75rem;margin-bottom:2rem;flex-wrap:wrap;
 }
-.chip {
-  font-size: 0.78rem;
-  color: #B8C8E4;
-  background: rgba(37,99,181,0.12);
-  border: 1px solid rgba(37,99,181,0.28);
-  padding: 0.3rem 0.75rem;
-  border-radius: 2px;
+.qs{display:flex;flex-direction:column;gap:.1rem}
+.qs strong{
+  font-family:var(--ff-d);font-size:1.5rem;font-weight:700;
+  color:#E8EDF5;line-height:1;font-variant-numeric:tabular-nums;
+}
+.qs span{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#5A7AA8}
+.qs-divider{width:1px;background:rgba(255,255,255,.1);align-self:stretch}
+
+.hero__chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.chip{
+  font-size:.76rem;color:#B8C8E4;
+  background:rgba(37,99,181,.14);border:1px solid rgba(37,99,181,.3);
+  padding:.28rem .72rem;border-radius:2px;
 }
 
-/* ── LEAD FORM CARD ──────────────────────────────────────── */
-.form-card {
-  background: var(--surface);
-  border-radius: var(--rl);
-  padding: 2rem 1.75rem;
-  box-shadow: 0 24px 72px rgba(7,14,28,0.55), 0 0 0 1px rgba(37,99,181,0.15);
+/* ── FORM CARD ──────────────────────────────────── */
+.form-card{
+  background:var(--surface);border-radius:var(--rxl);
+  padding:2rem 1.75rem;
+  box-shadow:0 32px 80px rgba(7,14,28,.6),0 0 0 1px rgba(37,99,181,.18);
 }
-.form-card__title {
-  font-family: var(--ff-display);
-  font-size: 1.3rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.3rem;
+.form-card__title{font-family:var(--ff-d);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.3rem}
+.form-card__sub{font-size:.8rem;color:var(--muted);margin-bottom:1.4rem}
+.form-card__sub strong{color:var(--blue-deep);font-weight:600}
+
+.fg{margin-bottom:.85rem}
+.fg label{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.3rem}
+.fg input,.fg select{
+  width:100%;border:1.5px solid var(--border);border-radius:var(--r);
+  padding:.65rem .85rem;font-family:var(--ff-u);font-size:.95rem;
+  color:var(--ink);background:var(--surface);outline:none;
+  transition:border-color .18s,box-shadow .18s;
+  appearance:none;-webkit-appearance:none;
 }
-.form-card__sub {
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-bottom: 1.4rem;
+.fg input:focus,.fg select:focus{
+  border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-glow);
 }
-.form-card__sub strong {
-  color: var(--blue-deep);
-  font-weight: 600;
+.fg select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%236B7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .75rem center;padding-right:2.2rem;
 }
 
-.fg { margin-bottom: 0.9rem; }
-.fg label {
-  display: block;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 0.3rem;
+.btn-orange{
+  width:100%;background:var(--orange);color:#fff;border:none;
+  padding:.9rem 1.5rem;font-family:var(--ff-u);font-size:.95rem;font-weight:700;
+  letter-spacing:.04em;border-radius:var(--r);cursor:pointer;
+  transition:background .18s,transform .12s,box-shadow .18s;margin-top:.2rem;
+  box-shadow:0 4px 16px rgba(240,117,53,.35);
 }
-.fg input,
-.fg select {
-  width: 100%;
-  border: 1.5px solid var(--border);
-  border-radius: var(--r);
-  padding: 0.65rem 0.85rem;
-  font-family: var(--ff-ui);
-  font-size: 0.95rem;
-  color: var(--ink);
-  background: var(--surface);
-  outline: none;
-  transition: border-color 0.18s, box-shadow 0.18s;
-  appearance: none;
-  -webkit-appearance: none;
+.btn-orange:hover{background:var(--orange-deep);transform:translateY(-2px);box-shadow:0 8px 24px rgba(240,117,53,.4)}
+.btn-orange:active{transform:translateY(0);box-shadow:none}
+.btn-orange:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+.form-trust{display:flex;align-items:center;justify-content:center;gap:.35rem;font-size:.72rem;color:var(--muted);margin-top:.6rem}
+
+/* ── STATS BAR ──────────────────────────────────── */
+.stats-bar{background:var(--blue);padding:1.35rem 1.5rem}
+.stats-bar__inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;align-items:center;
 }
-.fg input:focus,
-.fg select:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 3px var(--blue-glow);
+.stat{text-align:center}
+.stat__num{
+  font-family:var(--ff-d);font-size:2rem;font-weight:700;
+  color:#fff;line-height:1;font-variant-numeric:tabular-nums;
 }
-.fg select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  padding-right: 2.2rem;
+.stat__label{font-size:.67rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6);margin-top:.2rem}
+
+/* ── SHARED SEC ─────────────────────────────────── */
+.sec{padding:5.5rem 1.5rem}
+.sec--alt{background:var(--surface)}
+.sec--dark{background:#0D1A35}
+.sec__inner{max-width:1100px;margin:0 auto}
+
+.sec__eyebrow{
+  font-size:.67rem;text-transform:uppercase;letter-spacing:.15em;
+  color:var(--blue);display:block;margin-bottom:.6rem;
+}
+.sec--dark .sec__eyebrow{color:var(--orange)}
+
+.sec__heading{
+  font-family:var(--ff-d);
+  font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;
+  color:var(--ink);text-wrap:balance;line-height:1.2;margin-bottom:.65rem;
+}
+.sec--dark .sec__heading{color:#E8EDF5}
+
+.sec__intro{font-size:1rem;color:var(--muted);max-width:540px;margin-bottom:3rem;line-height:1.75}
+.sec--dark .sec__intro{color:#8FA3C4}
+
+/* ── SPACES ─────────────────────────────────────── */
+.spaces-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;
 }
 
-/* Primary form button — orange for high conversion */
-.btn-orange {
-  width: 100%;
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  padding: 0.9rem 1.5rem;
-  font-family: var(--ff-ui);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  border-radius: var(--r);
-  cursor: pointer;
-  transition: background 0.18s, transform 0.12s;
-  margin-top: 0.25rem;
+.space-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--rxl);overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:box-shadow .25s var(--ease),border-color .25s,transform .25s var(--ease);
 }
-.btn-orange:hover { background: var(--orange-deep); transform: translateY(-1px); }
-.btn-orange:active { transform: translateY(0); }
-.btn-orange:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.space-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(37,99,181,.13);
+  border-color:var(--blue-light);
+}
+.space-card:focus-within{border-color:var(--blue)}
 
-.form-trust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  font-size: 0.73rem;
-  color: var(--muted);
-  margin-top: 0.65rem;
+/* Illustration area */
+.space-card__art{
+  position:relative;overflow:hidden;
+  height:210px;background:var(--blue-pale);
+  transition:transform .35s var(--ease);
 }
+.space-card:hover .space-card__art{transform:scale(1.02)}
+.space-card__art canvas{display:block;width:100%;height:100%}
 
-/* ── STATS BAR ───────────────────────────────────────────── */
-.stats-bar {
-  background: var(--blue);
-  padding: 1.25rem 1.5rem;
-}
-.stats-bar__inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.stat { text-align: center; }
-.stat__num {
-  font-family: var(--ff-display);
-  font-size: 1.85rem;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.stat__label {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.65);
-  margin-top: 0.2rem;
+/* Category pill overlaid on art */
+.space-card__pill{
+  position:absolute;top:.85rem;left:.85rem;
+  background:rgba(7,14,28,.65);backdrop-filter:blur(6px);
+  color:#E8EDF5;font-size:.65rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.09em;
+  padding:.25rem .65rem;border-radius:20px;
+  border:1px solid rgba(255,255,255,.12);
 }
 
-/* ── SHARED SECTION WRAPPER ──────────────────────────────── */
-.sec {
-  padding: 5rem 1.5rem;
-}
-.sec--alt { background: var(--surface); }
-.sec--dark { background: #0D1A35; }
-.sec__inner { max-width: 1080px; margin: 0 auto; }
+.space-card__body{padding:1.4rem 1.5rem;flex:1;display:flex;flex-direction:column;gap:.85rem}
 
-.sec__eyebrow {
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--blue);
-  display: block;
-  margin-bottom: 0.55rem;
+.space-card__name{
+  font-family:var(--ff-d);font-size:1.15rem;font-weight:400;
+  color:var(--ink);margin-bottom:.2rem;
 }
-.sec--dark .sec__eyebrow { color: var(--orange); }
+.space-card__desc{font-size:.86rem;color:var(--muted);line-height:1.6}
 
-.sec__heading {
-  font-family: var(--ff-display);
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-  font-weight: 400;
-  color: var(--ink);
-  text-wrap: balance;
-  line-height: 1.2;
-  margin-bottom: 0.6rem;
+.space-meta{display:flex;gap:1rem;flex-wrap:wrap}
+.space-tag{
+  display:flex;align-items:center;gap:.35rem;
+  font-size:.78rem;font-weight:600;color:var(--blue);
+  background:var(--blue-pale);border-radius:4px;
+  padding:.25rem .65rem;
 }
-.sec--dark .sec__heading { color: #E8EDF5; }
+.space-tag--orange{color:var(--orange-deep);background:var(--orange-pale)}
 
-.sec__intro {
-  font-size: 1rem;
-  color: var(--muted);
-  max-width: 540px;
-  margin-bottom: 3rem;
-  line-height: 1.7;
+.space-card__features{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.space-card__features li{
+  display:flex;align-items:flex-start;gap:.5rem;
+  font-size:.83rem;color:var(--body);line-height:1.4;
 }
-.sec--dark .sec__intro { color: #8FA3C4; }
-
-/* ── WHY CARDS ───────────────────────────────────────────── */
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
-}
-.why-card {
-  padding: 1.5rem;
-  background: var(--ground);
-  border-left: 3px solid var(--blue);
-  border-radius: 0 var(--r) var(--r) 0;
-  transition: box-shadow 0.2s;
-}
-.sec--alt .why-card { background: var(--ground); }
-.why-card:hover { box-shadow: 0 4px 20px rgba(37,99,181,0.1); }
-
-.why-card__icon {
-  width: 36px; height: 36px;
-  background: var(--blue-glow);
-  border-radius: var(--r);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  margin-bottom: 0.85rem;
-}
-.why-card h4 {
-  font-family: var(--ff-display);
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.4rem;
-  line-height: 1.3;
-}
-.why-card p {
-  font-size: 0.86rem;
-  color: var(--muted);
-  line-height: 1.55;
+.space-card__features li::before{
+  content:'';width:5px;height:5px;background:var(--orange);
+  border-radius:50%;flex-shrink:0;margin-top:.45rem;
 }
 
-/* ── AMENITIES ───────────────────────────────────────────── */
-.amenities-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
-  gap: 0.75rem;
+.space-card__cta{
+  display:block;text-align:center;
+  padding:.65rem;border-radius:var(--r);
+  font-size:.84rem;font-weight:700;letter-spacing:.04em;
+  text-decoration:none;border:2px solid var(--blue);color:var(--blue);
+  transition:background .18s,color .18s,transform .12s;
+  margin-top:auto;
 }
-.amenity {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.7rem 0.9rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  font-size: 0.86rem;
-  color: var(--body-text);
-  transition: border-color 0.18s;
+.space-card__cta:hover{background:var(--blue);color:#fff;transform:translateY(-1px)}
+.space-card--orange .space-card__cta{background:var(--orange);border-color:var(--orange);color:#fff}
+.space-card--orange .space-card__cta:hover{background:var(--orange-deep);border-color:var(--orange-deep)}
+
+/* Conference strip */
+.conf-strip{
+  grid-column:1/-1;
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--rxl);padding:1.5rem 1.75rem;
+  display:grid;grid-template-columns:70px 1fr auto;gap:1.5rem;align-items:center;
+  transition:border-color .2s,box-shadow .2s,transform .25s var(--ease);
 }
-.amenity:hover { border-color: var(--blue); }
-.amenity__dot {
-  width: 6px; height: 6px;
-  background: var(--orange);
-  border-radius: 50%;
-  flex-shrink: 0;
+.conf-strip:hover{border-color:var(--blue-light);box-shadow:0 8px 32px rgba(37,99,181,.1);transform:translateY(-3px)}
+.conf-strip__art{
+  width:70px;height:70px;border-radius:var(--rl);
+  background:var(--blue-pale);overflow:hidden;flex-shrink:0;
+}
+.conf-strip__art canvas{display:block;width:100%;height:100%}
+.conf-strip__name{font-family:var(--ff-d);font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.3rem}
+.conf-strip__detail{font-size:.83rem;color:var(--muted);line-height:1.5}
+.conf-strip__price{text-align:right;white-space:nowrap}
+.conf-strip__amount{font-family:var(--ff-d);font-size:1.75rem;font-weight:700;color:var(--ink);display:block;line-height:1;font-variant-numeric:tabular-nums}
+.conf-strip__unit{font-size:.73rem;color:var(--muted)}
+
+/* ── WHY CARDS ──────────────────────────────────── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem}
+.why-card{
+  padding:1.6rem;background:var(--ground);
+  border-left:3px solid var(--blue);border-radius:0 var(--r) var(--r) 0;
+  transition:box-shadow .2s,transform .2s var(--ease);
+}
+.why-card:hover{box-shadow:0 6px 24px rgba(37,99,181,.1);transform:translateX(4px)}
+.why-card__icon{
+  width:40px;height:40px;border-radius:var(--r);
+  background:var(--blue-glow);display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:.9rem;
+}
+.why-card h4{font-family:var(--ff-d);font-size:1rem;font-weight:400;color:var(--ink);margin-bottom:.4rem;line-height:1.3}
+.why-card p{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+/* ── AMENITIES ──────────────────────────────────── */
+.amen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.7rem}
+.amenity{
+  display:flex;align-items:center;gap:.65rem;
+  padding:.7rem .95rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  font-size:.85rem;color:var(--body);
+  transition:border-color .18s,background .18s,transform .18s var(--ease);
+}
+.amenity:hover{border-color:var(--blue);background:var(--blue-pale);transform:translateY(-2px)}
+.amenity__dot{width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0}
+
+/* ── PRICING ────────────────────────────────────── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.25rem}
+.ws-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column;
+  transition:box-shadow .2s var(--ease),border-color .2s,transform .25s var(--ease);
+}
+.ws-card:hover{box-shadow:0 10px 40px rgba(37,99,181,.12);border-color:var(--blue-light);transform:translateY(-4px)}
+.ws-card--featured{border-color:var(--orange);position:relative}
+.ws-card--featured::before{
+  content:'Most Popular';position:absolute;top:0;right:0;
+  background:var(--orange);color:#fff;font-size:.63rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;padding:.25rem .7rem;
+  border-radius:0 var(--rl) 0 var(--r);
 }
 
-/* ── LOCATION ────────────────────────────────────────────── */
-.location-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+.ws-card__head{
+  background:var(--blue-pale);padding:1.25rem 1.5rem 1rem;
+  border-bottom:1px solid var(--border);
 }
+.ws-card--featured .ws-card__head{background:var(--orange-pale)}
+.ws-icon{font-size:1.4rem;margin-bottom:.5rem;display:block}
+.ws-name{font-family:var(--ff-d);font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.15rem}
+.ws-cap{font-size:.77rem;color:var(--muted)}
+.ws-cap strong{color:var(--blue);font-weight:600}
+.ws-card--featured .ws-cap strong{color:var(--orange-deep)}
 
-.location-info { display: flex; flex-direction: column; gap: 1.4rem; }
+.ws-card__body{padding:1.25rem 1.5rem;flex:1;display:flex;flex-direction:column;gap:.9rem}
+.ws-price{display:flex;align-items:baseline;gap:.3rem}
+.ws-price__amt{font-family:var(--ff-d);font-size:1.85rem;font-weight:700;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+.ws-price__unit{font-size:.77rem;color:var(--muted)}
+.ws-price__gst{font-size:.71rem;color:var(--muted);margin-top:.12rem}
+.ws-hr{border:none;border-top:1px solid var(--border);margin:0}
 
-.info-row { display: flex; gap: 1rem; align-items: flex-start; }
-.info-row__icon {
-  width: 32px; height: 32px;
-  background: rgba(240,117,53,0.15);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-  margin-top: 0.15rem;
-}
-.info-row__label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--orange-light);
-  margin-bottom: 0.2rem;
-}
-.info-row__value {
-  font-size: 0.92rem;
-  color: #8FA3C4;
-  line-height: 1.55;
-}
-.info-row__value a {
-  color: var(--blue-light);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.info-row__value a:hover { color: var(--orange); }
+.ws-list{list-style:none;display:flex;flex-direction:column;gap:.42rem}
+.ws-list li{display:flex;align-items:flex-start;gap:.5rem;font-size:.83rem;color:var(--body);line-height:1.45}
+.ws-list li::before{content:'';width:5px;height:5px;background:var(--orange);border-radius:50%;flex-shrink:0;margin-top:.44rem}
 
-.map-wrap {
-  background: #08111F;
-  border-radius: var(--rl);
-  overflow: hidden;
-  border: 1px solid rgba(37,99,181,0.2);
-  aspect-ratio: 4/3;
+.ws-card__cta{
+  display:block;margin:0 1.5rem 1.5rem;text-align:center;
+  padding:.65rem;border-radius:var(--r);
+  font-size:.85rem;font-weight:700;letter-spacing:.04em;text-decoration:none;
+  border:2px solid var(--blue);color:var(--blue);
+  transition:background .18s,color .18s,transform .12s;
 }
-#mapCanvas { display: block; width: 100%; height: 100%; }
+.ws-card__cta:hover{background:var(--blue);color:#fff;transform:translateY(-1px)}
+.ws-card--featured .ws-card__cta{background:var(--orange);border-color:var(--orange);color:#fff}
+.ws-card--featured .ws-card__cta:hover{background:var(--orange-deep);border-color:var(--orange-deep)}
 
-.btn-directions {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: var(--orange);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.88rem;
-  letter-spacing: 0.04em;
-  padding: 0.7rem 1.4rem;
-  border-radius: var(--r);
-  text-decoration: none;
-  transition: background 0.18s;
+.conf-p-strip{
+  margin-top:1.25rem;background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--rl);padding:1.5rem;
+  display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:center;
+  transition:border-color .2s,box-shadow .2s,transform .25s var(--ease);
 }
-.btn-directions:hover { background: var(--orange-deep); }
-.btn-directions:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.conf-p-strip:hover{border-color:var(--blue-light);box-shadow:0 8px 32px rgba(37,99,181,.1);transform:translateY(-3px)}
+.conf-p-icon{font-size:2rem}
+.conf-p-name{font-family:var(--ff-d);font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.25rem}
+.conf-p-detail{font-size:.83rem;color:var(--muted);line-height:1.5}
+.conf-p-price{text-align:right;white-space:nowrap}
+.conf-p-amt{font-family:var(--ff-d);font-size:1.7rem;font-weight:700;color:var(--ink);display:block;line-height:1;font-variant-numeric:tabular-nums}
+.conf-p-unit{font-size:.73rem;color:var(--muted)}
 
-/* ── FINAL CTA ───────────────────────────────────────────── */
-.final-cta {
-  background: var(--orange);
-  padding: 5rem 1.5rem;
-  text-align: center;
+/* ── LOCATION ───────────────────────────────────── */
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.loc-info{display:flex;flex-direction:column;gap:1.4rem}
+.info-row{display:flex;gap:1rem;align-items:flex-start}
+.info-row__ico{
+  width:34px;height:34px;background:rgba(240,117,53,.15);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;flex-shrink:0;margin-top:.1rem;
 }
-.final-cta h2 {
-  font-family: var(--ff-display);
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
-  font-weight: 400;
-  color: #fff;
-  text-wrap: balance;
-  margin-bottom: 0.65rem;
-  line-height: 1.18;
+.info-row__lbl{font-size:.63rem;text-transform:uppercase;letter-spacing:.1em;color:var(--orange-lt);margin-bottom:.2rem}
+.info-row__val{font-size:.92rem;color:#8FA3C4;line-height:1.55}
+.info-row__val a{color:var(--blue-light);text-decoration:none;transition:color .15s}
+.info-row__val a:hover{color:var(--orange)}
+.map-wrap{background:#08111F;border-radius:var(--rxl);overflow:hidden;border:1px solid rgba(37,99,181,.2);aspect-ratio:4/3}
+#mapCanvas{display:block;width:100%;height:100%}
+.btn-dir{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--orange);color:#fff;font-weight:700;font-size:.88rem;
+  letter-spacing:.04em;padding:.72rem 1.5rem;border-radius:var(--r);
+  text-decoration:none;transition:background .18s,transform .15s var(--ease),box-shadow .18s;
+  box-shadow:0 4px 14px rgba(240,117,53,.3);
 }
-.final-cta p {
-  color: rgba(255,255,255,0.78);
-  font-size: 1rem;
-  margin-bottom: 2.25rem;
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.cta-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.btn-white {
-  background: #fff;
-  color: var(--orange-deep);
-  border: none;
-  padding: 0.9rem 2rem;
-  font-family: var(--ff-ui);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  border-radius: var(--r);
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: background 0.18s, color 0.18s;
-}
-.btn-white:hover { background: var(--orange-light); }
-.btn-white:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.btn-dir:hover{background:var(--orange-deep);transform:translateY(-2px);box-shadow:0 8px 20px rgba(240,117,53,.35)}
+.btn-dir:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 
-.btn-outline-white {
-  background: transparent;
-  color: #fff;
-  border: 2px solid rgba(255,255,255,0.7);
-  padding: 0.9rem 2rem;
-  font-family: var(--ff-ui);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  border-radius: var(--r);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: background 0.18s, border-color 0.18s;
+/* ── FINAL CTA ──────────────────────────────────── */
+.final-cta{background:var(--orange);padding:5.5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.final-cta::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.1) 1px,transparent 1px);
+  background-size:28px 28px;pointer-events:none;
 }
-.btn-outline-white:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
-.btn-outline-white:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.final-cta h2{
+  font-family:var(--ff-d);font-size:clamp(1.9rem,4vw,3.2rem);font-weight:400;
+  color:#fff;text-wrap:balance;margin-bottom:.65rem;line-height:1.18;
+  position:relative;z-index:1;
+}
+.final-cta p{color:rgba(255,255,255,.78);font-size:1rem;margin-bottom:2.25rem;max-width:430px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
+.cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-white{
+  background:#fff;color:var(--orange-deep);border:none;
+  padding:.9rem 2rem;font-family:var(--ff-u);font-size:.95rem;font-weight:700;
+  letter-spacing:.04em;border-radius:var(--r);cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.4rem;
+  transition:background .18s,transform .15s var(--ease),box-shadow .18s;
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
+}
+.btn-white:hover{background:var(--orange-lt);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.btn-white:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.btn-outline-white{
+  background:transparent;color:#fff;border:2px solid rgba(255,255,255,.65);
+  padding:.9rem 2rem;font-family:var(--ff-u);font-size:.95rem;font-weight:700;
+  letter-spacing:.04em;border-radius:var(--r);text-decoration:none;
+  display:inline-flex;align-items:center;gap:.4rem;
+  transition:background .18s,border-color .18s,transform .15s var(--ease);
+}
+.btn-outline-white:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
+.btn-outline-white:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
-/* ── FOOTER ──────────────────────────────────────────────── */
-footer {
-  background: #070E1C;
-  color: #3D5070;
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 0.78rem;
-  line-height: 1.8;
-}
-footer a { color: var(--blue-light); text-decoration: none; }
-footer a:hover { color: var(--orange); }
+/* ── FOOTER ─────────────────────────────────────── */
+footer{background:#070E1C;color:#2D3D58;text-align:center;padding:1.5rem;font-size:.78rem;line-height:1.8}
+footer a{color:var(--blue-light);text-decoration:none;transition:color .15s}
+footer a:hover{color:var(--orange)}
 
-/* ── RESPONSIVE ──────────────────────────────────────────── */
-@media (max-width: 860px) {
-  .hero__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-  .location-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero { padding: 3.5rem 1.25rem 6rem; }
-  .sec { padding: 3.5rem 1.25rem; }
+/* ── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:900px){
+  .hero__inner{grid-template-columns:1fr;gap:2.5rem}
+  .loc-grid{grid-template-columns:1fr;gap:2.5rem}
+  .hero{padding:3.5rem 1.25rem 6rem}
+  .sec{padding:3.5rem 1.25rem}
+  .conf-strip{grid-template-columns:auto 1fr}
+  .conf-strip__price{grid-column:1/-1;text-align:left}
+  .conf-p-strip{grid-template-columns:auto 1fr;row-gap:.75rem}
+  .conf-p-price{grid-column:1/-1;text-align:left}
 }
-@media (max-width: 560px) {
-  .top-bar__urgency { display: none; }
-  .stats-bar__inner { gap: 2rem; }
-  .stat__num { font-size: 1.5rem; }
+@media(max-width:560px){
+  .top-bar__urgency{display:none}
+  .stats-bar__inner{gap:2rem}
+  .stat__num{font-size:1.5rem}
+  .hero__quickstats{gap:1.25rem}
 }
-
-/* ── WORKSPACE / PRICING ─────────────────────────────────── */
-.workspace-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
-  margin-top: 0;
-}
-
-.ws-card {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--rl);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.2s, border-color 0.2s;
-}
-.ws-card:hover {
-  box-shadow: 0 8px 32px rgba(37,99,181,0.1);
-  border-color: var(--blue);
-}
-.ws-card--featured {
-  border-color: var(--orange);
-  position: relative;
-}
-.ws-card--featured::before {
-  content: 'Most Popular';
-  position: absolute;
-  top: 0; right: 0;
-  background: var(--orange);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 0.25rem 0.7rem;
-  border-radius: 0 var(--rl) 0 var(--r);
-}
-
-.ws-card__header {
-  background: #F4F6FA;
-  padding: 1.25rem 1.5rem 1rem;
-  border-bottom: 1px solid var(--border);
-}
-@media (prefers-color-scheme: dark) {
-  .ws-card__header { background: #151E2E; }
-}
-:root[data-theme="dark"] .ws-card__header { background: #151E2E; }
-:root[data-theme="light"] .ws-card__header { background: #F4F6FA; }
-
-.ws-card__icon {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-.ws-card__name {
-  font-family: var(--ff-display);
-  font-size: 1.05rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.15rem;
-}
-.ws-card__capacity {
-  font-size: 0.78rem;
-  color: var(--muted);
-}
-.ws-card__capacity strong {
-  color: var(--blue);
-  font-weight: 600;
-}
-
-.ws-card__body {
-  padding: 1.25rem 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.ws-price {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-}
-.ws-price__amount {
-  font-family: var(--ff-display);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-.ws-price__unit {
-  font-size: 0.78rem;
-  color: var(--muted);
-}
-.ws-price__gst {
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin-top: 0.15rem;
-}
-
-.ws-divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 0;
-}
-
-.ws-details { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-.ws-details li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.84rem;
-  color: var(--body-text);
-  line-height: 1.45;
-}
-.ws-details li::before {
-  content: '';
-  width: 5px; height: 5px;
-  background: var(--orange);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 0.42rem;
-}
-
-.ws-card__cta {
-  display: block;
-  margin: 0 1.5rem 1.5rem;
-  text-align: center;
-  padding: 0.65rem;
-  border-radius: var(--r);
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  border: 2px solid var(--blue);
-  color: var(--blue);
-  transition: background 0.18s, color 0.18s;
-}
-.ws-card__cta:hover { background: var(--blue); color: #fff; }
-.ws-card--featured .ws-card__cta {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: #fff;
-}
-.ws-card--featured .ws-card__cta:hover { background: var(--orange-deep); border-color: var(--orange-deep); }
-
-/* Conference room full-width strip */
-.conf-strip {
-  margin-top: 1.25rem;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--rl);
-  padding: 1.5rem;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1.5rem;
-  align-items: center;
-  transition: border-color 0.2s;
-}
-.conf-strip:hover { border-color: var(--blue); }
-
-.conf-strip__icon { font-size: 2rem; }
-.conf-strip__info {}
-.conf-strip__name {
-  font-family: var(--ff-display);
-  font-size: 1.05rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.25rem;
-}
-.conf-strip__details { font-size: 0.84rem; color: var(--muted); }
-.conf-strip__price {
-  text-align: right;
-  white-space: nowrap;
-}
-.conf-strip__amount {
-  font-family: var(--ff-display);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--ink);
-  display: block;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.conf-strip__unit { font-size: 0.75rem; color: var(--muted); }
-
-@media (max-width: 560px) {
-  .conf-strip { grid-template-columns: auto 1fr; }
-  .conf-strip__price { grid-column: 1 / -1; text-align: left; }
-}
-
-/* ── MOTION ──────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none !important;animation:none !important}
+  .reveal{opacity:1;transform:none}
 }
 </style>
 
-<!-- Sticky top bar -->
+<!-- TOP BAR -->
 <header class="top-bar" role="banner">
   <span class="top-bar__brand">Ease Coworking</span>
   <div class="top-bar__right">
-    <span class="top-bar__urgency">⚡ Limited seats available</span>
+    <span class="top-bar__urgency">
+      <span class="urgency-dot" aria-hidden="true"></span>
+      Limited seats available
+    </span>
     <a href="tel:+919677031457" class="top-bar__phone" aria-label="Call Ease Coworking">
-      <span class="top-bar__phone-icon" aria-hidden="true">☎</span>
+      <span class="phone-pill">Call Now</span>
       +91 96770 31457
     </a>
   </div>
 </header>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero" aria-label="Hero">
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div>
+
   <div class="hero__inner">
     <div class="hero__text">
-      <span class="hero__eyebrow">Teynampet · Chennai · 6th Floor, JVL Plaza</span>
-      <h1 class="hero__title">
-        Your office.<br>
-        <em>On your terms.</em>
-      </h1>
-      <p class="hero__sub">
-        Premium coworking built for Chennai's startups, freelancers, and growing teams —
-        with architect-designed interiors and corporate-grade infrastructure.
-      </p>
+      <div class="hero__badge"><span class="badge-pin">📍</span>Teynampet · Chennai · JVL Plaza, 6th Floor</div>
+      <h1 class="hero__title">Your office.<br><em>On your terms.</em></h1>
+      <p class="hero__sub">Premium coworking for Chennai's startups, freelancers, and growing teams — architect-designed, corporate-grade, no long-term lock-in.</p>
+
+      <div class="hero__quickstats">
+        <div class="qs"><strong>78</strong><span>Hot desks</span></div>
+        <div class="qs-divider" aria-hidden="true"></div>
+        <div class="qs"><strong>13</strong><span>Cabins</span></div>
+        <div class="qs-divider" aria-hidden="true"></div>
+        <div class="qs"><strong>1 Gbps</strong><span>Internet</span></div>
+        <div class="qs-divider" aria-hidden="true"></div>
+        <div class="qs"><strong>6th</strong><span>Floor views</span></div>
+      </div>
+
       <div class="hero__chips">
         <span class="chip">No long-term lock-in</span>
-        <span class="chip">Day pass · Dedicated desk · Private cabin</span>
-        <span class="chip">Available from Day One</span>
+        <span class="chip">Day pass · Desk · Cabin</span>
+        <span class="chip">Ready from Day One</span>
       </div>
     </div>
 
@@ -823,7 +586,6 @@ footer a:hover { color: var(--orange); }
     <div class="form-card" id="bookForm">
       <h2 class="form-card__title">Book a Free Tour</h2>
       <p class="form-card__sub">We'll call back <strong>within 30 minutes.</strong></p>
-
       <form id="leadForm" novalidate onsubmit="handleSubmit(event)">
         <div class="fg">
           <label for="f-name">Your Name</label>
@@ -834,7 +596,7 @@ footer a:hover { color: var(--orange); }
           <input type="tel" id="f-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel">
         </div>
         <div class="fg">
-          <label for="f-seats">How many seats?</label>
+          <label for="f-seats">Team size</label>
           <select id="f-seats" name="seats">
             <option value="1">Just me (1 seat)</option>
             <option value="2-5">Small team (2–5)</option>
@@ -848,15 +610,13 @@ footer a:hover { color: var(--orange); }
             <option value="hot-desk">Flexible / Hot Desk</option>
             <option value="dedicated">Dedicated Desk</option>
             <option value="cabin">Private Cabin</option>
+            <option value="team">Team Cabin</option>
             <option value="conference">Conference Room</option>
           </select>
         </div>
         <button type="submit" class="btn-orange" id="submitBtn">Get My Free Tour →</button>
         <p class="form-trust" aria-label="Privacy notice">
-          <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
-            <rect x="1" y="5" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M3.5 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-          </svg>
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"><rect x="1" y="5" width="9" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M3.5 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
           No spam. We'll only call you once.
         </p>
       </form>
@@ -864,51 +624,137 @@ footer a:hover { color: var(--orange); }
   </div>
 </section>
 
-<!-- Stats bar -->
+<!-- STATS BAR -->
 <div class="stats-bar" role="region" aria-label="Key numbers">
   <div class="stats-bar__inner">
-    <div class="stat">
-      <div class="stat__num">6th</div>
-      <div class="stat__label">Floor, JVL Plaza</div>
-    </div>
-    <div class="stat">
-      <div class="stat__num">1 Gbps</div>
-      <div class="stat__label">High-Speed Internet</div>
-    </div>
-    <div class="stat">
-      <div class="stat__num">24 / 7</div>
-      <div class="stat__label">Secure Access</div>
-    </div>
-    <div class="stat">
-      <div class="stat__num">100%</div>
-      <div class="stat__label">Flexible Plans</div>
-    </div>
+    <div class="stat"><div class="stat__num" data-count="78" data-suffix="+">78+</div><div class="stat__label">Hot Desk Seats</div></div>
+    <div class="stat"><div class="stat__num" data-count="13">13</div><div class="stat__label">Private Cabins</div></div>
+    <div class="stat"><div class="stat__num">1 Gbps</div><div class="stat__label">Internet Speed</div></div>
+    <div class="stat"><div class="stat__num" data-count="100" data-suffix="%">100%</div><div class="stat__label">Flexible Plans</div></div>
   </div>
 </div>
 
-<!-- Why Ease -->
+<!-- OUR SPACES -->
+<section class="sec" aria-labelledby="spaces-heading">
+  <div class="sec__inner">
+    <span class="sec__eyebrow reveal">Our Spaces</span>
+    <h2 class="sec__heading reveal">Step inside Ease Coworking</h2>
+    <p class="sec__intro reveal">Four distinct workspace environments — each designed for a different way of working, all in one premium address.</p>
+
+    <div class="spaces-grid">
+
+      <!-- HOT DESK -->
+      <div class="space-card reveal reveal-d1">
+        <div class="space-card__art">
+          <canvas id="art-hotdesk"></canvas>
+          <span class="space-card__pill">Open Floor</span>
+        </div>
+        <div class="space-card__body">
+          <div>
+            <div class="space-card__name">Hot Desk</div>
+            <div class="space-card__desc">An open, buzzing workspace perfect for solo professionals and freelancers who thrive with energy around them.</div>
+          </div>
+          <div class="space-meta">
+            <span class="space-tag">💺 78 Seats</span>
+            <span class="space-tag--orange space-tag">₹5,500 / seat</span>
+          </div>
+          <ul class="space-card__features">
+            <li>Any desk, any day — total flexibility</li>
+            <li>1 Gbps WiFi & wired LAN at every seat</li>
+            <li>Cafeteria, game zone & lounge access</li>
+          </ul>
+          <a href="#bookForm" class="space-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Tour</a>
+        </div>
+      </div>
+
+      <!-- PRIVATE CABIN -->
+      <div class="space-card space-card--orange reveal reveal-d2">
+        <div class="space-card__art">
+          <canvas id="art-cabin"></canvas>
+          <span class="space-card__pill">MD Cabin</span>
+        </div>
+        <div class="space-card__body">
+          <div>
+            <div class="space-card__name">Private Cabin</div>
+            <div class="space-card__desc">An enclosed executive-style cabin for founders and leaders who need privacy, presence, and premium aesthetics.</div>
+          </div>
+          <div class="space-meta">
+            <span class="space-tag">🚪 5 Cabins · 3 seats each</span>
+            <span class="space-tag--orange space-tag">₹20,000 / cabin</span>
+          </div>
+          <ul class="space-card__features">
+            <li>Fully enclosed, soundproof cabin</li>
+            <li>Executive furniture & premium interiors</li>
+            <li>Conference room access included</li>
+          </ul>
+          <a href="#bookForm" class="space-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Tour</a>
+        </div>
+      </div>
+
+      <!-- TEAM CABIN -->
+      <div class="space-card reveal reveal-d3">
+        <div class="space-card__art">
+          <canvas id="art-team"></canvas>
+          <span class="space-card__pill">Team Space</span>
+        </div>
+        <div class="space-card__body">
+          <div>
+            <div class="space-card__name">Team Cabin</div>
+            <div class="space-card__desc">Dedicated enclosed cabins for growing teams who need their own space — 8 cabins across five sizes.</div>
+          </div>
+          <div class="space-meta">
+            <span class="space-tag">👥 8 Cabins · 4–14 seats</span>
+            <span class="space-tag--orange space-tag">₹8,000 / seat</span>
+          </div>
+          <ul class="space-card__features">
+            <li>4-seat × 2 &nbsp;|&nbsp; 5-seat × 3 &nbsp;|&nbsp; 10-seat × 1</li>
+            <li>12-seat × 1 &nbsp;|&nbsp; 14-seat × 1</li>
+            <li>Whiteboard, dedicated power & LAN</li>
+          </ul>
+          <a href="#bookForm" class="space-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Tour</a>
+        </div>
+      </div>
+
+      <!-- CONFERENCE — full width strip -->
+      <div class="conf-strip reveal reveal-d4">
+        <div class="conf-strip__art"><canvas id="art-conf-sm"></canvas></div>
+        <div>
+          <div class="conf-strip__name">Conference Room</div>
+          <div class="conf-strip__detail">10 seats · Smart board · High-speed internet · AV setup · Ideal for client presentations and team workshops</div>
+        </div>
+        <div class="conf-strip__price">
+          <span class="conf-strip__amount">₹1,100</span>
+          <span class="conf-strip__unit">/ hour + GST</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY EASE -->
 <section class="sec sec--alt" aria-labelledby="why-heading">
   <div class="sec__inner">
-    <span class="sec__eyebrow">Why choose Ease</span>
-    <h2 class="sec__heading" id="why-heading">Built for people who mean business</h2>
-    <p class="sec__intro">Not just a desk — a complete work environment designed by an M.Arch professional for productivity, collaboration, and growth.</p>
+    <span class="sec__eyebrow reveal">Why choose Ease</span>
+    <h2 class="sec__heading reveal" id="why-heading">Built for people who mean business</h2>
+    <p class="sec__intro reveal">Not just a desk — a complete work environment designed by an M.Arch professional for productivity, collaboration, and growth.</p>
     <div class="why-grid">
-      <div class="why-card">
+      <div class="why-card reveal reveal-d1">
         <div class="why-card__icon" aria-hidden="true">🏗️</div>
         <h4>Purposeful Design</h4>
         <p>Every corner optimized by an architect for ergonomics, acoustics, and focus. You'll feel the difference the moment you walk in.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card reveal reveal-d2">
         <div class="why-card__icon" aria-hidden="true">⚡</div>
         <h4>Corporate Infrastructure</h4>
         <p>1 Gbps WiFi, LAN, UPS power backup, and smart board conference rooms — the full stack, without a corporate lease.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card reveal reveal-d3">
         <div class="why-card__icon" aria-hidden="true">🤝</div>
         <h4>Thriving Community</h4>
         <p>Work alongside Chennai's fastest-growing startups and freelancers. Ease is built around connection, not isolation.</p>
       </div>
-      <div class="why-card">
+      <div class="why-card reveal reveal-d4">
         <div class="why-card__icon" aria-hidden="true">📈</div>
         <h4>Scales With You</h4>
         <p>Hot desk today, private cabin next month. Flexible plans let you expand at your pace, on your schedule.</p>
@@ -917,58 +763,48 @@ footer a:hover { color: var(--orange); }
   </div>
 </section>
 
-<!-- Amenities -->
-<section class="sec" aria-labelledby="amenities-heading">
+<!-- AMENITIES -->
+<section class="sec" aria-labelledby="amen-heading">
   <div class="sec__inner">
-    <span class="sec__eyebrow">Amenities</span>
-    <h2 class="sec__heading" id="amenities-heading">Everything you need. Nothing you don't.</h2>
-    <p class="sec__intro">Premium facilities as standard — no extras, no hidden fees.</p>
-    <div class="amenities-grid" role="list">
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>High-Speed WiFi & LAN</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Private Cabins</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Conference Rooms</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Smart Board Facilities</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Flexible Hot Desks</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Discussion Rooms</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Cafeteria</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Game Zone</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>24-Hour Secure Access</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Front Desk Support</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>UPS Power Backup</div>
-      <div class="amenity" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Premium Interiors</div>
+    <span class="sec__eyebrow reveal">Amenities</span>
+    <h2 class="sec__heading reveal" id="amen-heading">Everything you need. Nothing you don't.</h2>
+    <p class="sec__intro reveal">Premium facilities as standard — no extras, no hidden fees.</p>
+    <div class="amen-grid" role="list">
+      <div class="amenity reveal reveal-d1" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>High-Speed WiFi & LAN</div>
+      <div class="amenity reveal reveal-d2" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Private Cabins</div>
+      <div class="amenity reveal reveal-d3" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Conference Rooms</div>
+      <div class="amenity reveal reveal-d4" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Smart Board Facilities</div>
+      <div class="amenity reveal reveal-d1" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Flexible Hot Desks</div>
+      <div class="amenity reveal reveal-d2" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Discussion Rooms</div>
+      <div class="amenity reveal reveal-d3" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Cafeteria</div>
+      <div class="amenity reveal reveal-d4" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Game Zone</div>
+      <div class="amenity reveal reveal-d1" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>24-Hour Secure Access</div>
+      <div class="amenity reveal reveal-d2" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Front Desk Support</div>
+      <div class="amenity reveal reveal-d3" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>UPS Power Backup</div>
+      <div class="amenity reveal reveal-d4" role="listitem"><span class="amenity__dot" aria-hidden="true"></span>Premium Interiors</div>
     </div>
   </div>
 </section>
 
-<!-- Workspace & Pricing -->
+<!-- PRICING -->
 <section class="sec sec--alt" aria-labelledby="pricing-heading">
   <div class="sec__inner">
-    <span class="sec__eyebrow">Workspace Options</span>
-    <h2 class="sec__heading" id="pricing-heading">Find the right space for you</h2>
-    <p class="sec__intro">Transparent pricing — pick exactly what your team needs. All plans include WiFi, power backup, and front desk support.</p>
-
-    <div class="workspace-grid">
-
-      <!-- Hot Desk -->
-      <div class="ws-card">
-        <div class="ws-card__header">
-          <span class="ws-card__icon">💺</span>
-          <div class="ws-card__name">Hot Desk</div>
-          <div class="ws-card__capacity"><strong>78 seats</strong> available</div>
+    <span class="sec__eyebrow reveal">Transparent Pricing</span>
+    <h2 class="sec__heading reveal" id="pricing-heading">Simple, honest pricing</h2>
+    <p class="sec__intro reveal">No hidden fees. No annual commitments unless you want one. Pick what fits and scale as you grow.</p>
+    <div class="pricing-grid">
+      <div class="ws-card reveal reveal-d1">
+        <div class="ws-card__head">
+          <span class="ws-icon">💺</span>
+          <div class="ws-name">Hot Desk</div>
+          <div class="ws-cap"><strong>78 seats</strong> available</div>
         </div>
         <div class="ws-card__body">
-          <div>
-            <div class="ws-price">
-              <span class="ws-price__amount">₹5,500</span>
-              <span class="ws-price__unit">/ seat / month</span>
-            </div>
-            <div class="ws-price__gst">+ 18% GST</div>
-          </div>
-          <hr class="ws-divider">
-          <ul class="ws-details">
-            <li>Flexible open workspace</li>
-            <li>Any available desk, any day</li>
-            <li>High-speed WiFi & LAN access</li>
+          <div><div class="ws-price"><span class="ws-price__amt">₹5,500</span><span class="ws-price__unit">/ seat / month</span></div><div class="ws-price__gst">+ 18% GST</div></div>
+          <hr class="ws-hr">
+          <ul class="ws-list">
+            <li>Any desk, any day — full flexibility</li>
+            <li>1 Gbps WiFi & LAN at every seat</li>
             <li>Cafeteria & game zone access</li>
             <li>Front desk & security support</li>
           </ul>
@@ -976,137 +812,99 @@ footer a:hover { color: var(--orange); }
         <a href="#bookForm" class="ws-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Enquire Now</a>
       </div>
 
-      <!-- Private Cabin -->
-      <div class="ws-card ws-card--featured">
-        <div class="ws-card__header">
-          <span class="ws-card__icon">🚪</span>
-          <div class="ws-card__name">Private Cabin (MD)</div>
-          <div class="ws-card__capacity"><strong>5 cabins</strong> · 3 seats each</div>
+      <div class="ws-card ws-card--featured reveal reveal-d2">
+        <div class="ws-card__head">
+          <span class="ws-icon">🚪</span>
+          <div class="ws-name">Private Cabin (MD)</div>
+          <div class="ws-cap"><strong>5 cabins</strong> · 3 seats each</div>
         </div>
         <div class="ws-card__body">
-          <div>
-            <div class="ws-price">
-              <span class="ws-price__amount">₹20,000</span>
-              <span class="ws-price__unit">/ cabin / month</span>
-            </div>
-            <div class="ws-price__gst">+ 18% GST &nbsp;·&nbsp; ≈ ₹6,667 per seat</div>
-          </div>
-          <hr class="ws-divider">
-          <ul class="ws-details">
-            <li>Fully enclosed MD-style cabin</li>
-            <li>3 seats per cabin</li>
+          <div><div class="ws-price"><span class="ws-price__amt">₹20,000</span><span class="ws-price__unit">/ cabin / month</span></div><div class="ws-price__gst">+ GST &nbsp;·&nbsp; ≈ ₹6,667 per seat</div></div>
+          <hr class="ws-hr">
+          <ul class="ws-list">
+            <li>Fully enclosed executive cabin</li>
+            <li>Premium furniture & interiors</li>
             <li>Enhanced privacy & acoustics</li>
-            <li>Dedicated power points & LAN</li>
-            <li>Conference room access included</li>
+            <li>Conference room access</li>
           </ul>
         </div>
         <a href="#bookForm" class="ws-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Enquire Now</a>
       </div>
 
-      <!-- Team Cabin -->
-      <div class="ws-card">
-        <div class="ws-card__header">
-          <span class="ws-card__icon">👥</span>
-          <div class="ws-card__name">Team Cabin</div>
-          <div class="ws-card__capacity"><strong>8 cabins</strong> · 4 to 14 seats</div>
+      <div class="ws-card reveal reveal-d3">
+        <div class="ws-card__head">
+          <span class="ws-icon">👥</span>
+          <div class="ws-name">Team Cabin</div>
+          <div class="ws-cap"><strong>8 cabins</strong> · 4 to 14 seats</div>
         </div>
         <div class="ws-card__body">
-          <div>
-            <div class="ws-price">
-              <span class="ws-price__amount">₹8,000</span>
-              <span class="ws-price__unit">/ seat / month</span>
-            </div>
-            <div class="ws-price__gst">+ 18% GST</div>
-          </div>
-          <hr class="ws-divider">
-          <ul class="ws-details">
-            <li>4-seat cabin &nbsp;×&nbsp; 2 available</li>
-            <li>5-seat cabin &nbsp;×&nbsp; 3 available</li>
-            <li>10-seat cabin &nbsp;×&nbsp; 1 available</li>
-            <li>12-seat cabin &nbsp;×&nbsp; 1 available</li>
-            <li>14-seat cabin &nbsp;×&nbsp; 1 available</li>
+          <div><div class="ws-price"><span class="ws-price__amt">₹8,000</span><span class="ws-price__unit">/ seat / month</span></div><div class="ws-price__gst">+ 18% GST</div></div>
+          <hr class="ws-hr">
+          <ul class="ws-list">
+            <li>4-seat × 2 &nbsp;|&nbsp; 5-seat × 3</li>
+            <li>10-seat × 1 &nbsp;|&nbsp; 12-seat × 1 &nbsp;|&nbsp; 14-seat × 1</li>
+            <li>Whiteboard & dedicated LAN</li>
+            <li>Fully enclosed, team-ready</li>
           </ul>
         </div>
         <a href="#bookForm" class="ws-card__cta" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Enquire Now</a>
       </div>
-
     </div>
 
-    <!-- Conference Room strip -->
-    <div class="conf-strip">
-      <div class="conf-strip__icon" aria-hidden="true">🖥️</div>
-      <div class="conf-strip__info">
-        <div class="conf-strip__name">Conference Room</div>
-        <div class="conf-strip__details">10 seats &nbsp;·&nbsp; Smart board &nbsp;·&nbsp; High-speed internet &nbsp;·&nbsp; AV setup &nbsp;·&nbsp; Ideal for client meets & team presentations</div>
+    <div class="conf-p-strip reveal">
+      <div class="conf-p-icon" aria-hidden="true">🖥️</div>
+      <div>
+        <div class="conf-p-name">Conference Room</div>
+        <div class="conf-p-detail">10 seats · Smart board · High-speed internet · AV setup · Perfect for client meets & team presentations</div>
       </div>
-      <div class="conf-strip__price">
-        <span class="conf-strip__amount">₹1,100</span>
-        <span class="conf-strip__unit">/ hour + GST</span>
+      <div class="conf-p-price">
+        <span class="conf-p-amt">₹1,100</span>
+        <span class="conf-p-unit">/ hour + GST</span>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- Location -->
-<section class="sec sec--dark" aria-labelledby="location-heading">
+<!-- LOCATION -->
+<section class="sec sec--dark" aria-labelledby="loc-heading">
   <div class="sec__inner">
-    <span class="sec__eyebrow">Find us</span>
-    <h2 class="sec__heading" id="location-heading">Right in the heart of Chennai</h2>
-    <p class="sec__intro">Teynampet is one of Chennai's most connected business corridors — easy access by Metro, road, and cab.</p>
-    <div class="location-grid">
-      <div class="location-info">
+    <span class="sec__eyebrow reveal">Find us</span>
+    <h2 class="sec__heading reveal" id="loc-heading">Right in the heart of Chennai</h2>
+    <p class="sec__intro reveal">Teynampet — one of Chennai's most connected business corridors, with easy access by Metro, road, and cab.</p>
+    <div class="loc-grid">
+      <div class="loc-info reveal">
         <div class="info-row">
-          <div class="info-row__icon" aria-hidden="true">📍</div>
-          <div>
-            <div class="info-row__label">Address</div>
-            <div class="info-row__value">6th Floor, JVL Plaza<br>Teynampet, Chennai – 600018</div>
-          </div>
+          <div class="info-row__ico" aria-hidden="true">📍</div>
+          <div><div class="info-row__lbl">Address</div><div class="info-row__val">6th Floor, JVL Plaza<br>Teynampet, Chennai – 600018</div></div>
         </div>
         <div class="info-row">
-          <div class="info-row__icon" aria-hidden="true">📞</div>
-          <div>
-            <div class="info-row__label">Call Us</div>
-            <div class="info-row__value">
-              <a href="tel:+919677031457">+91 96770 31457</a><br>
-              <a href="tel:+919840962554">+91 98409 62554</a><br>
-              <a href="tel:+919884105544">+91 98841 05544</a>
-            </div>
-          </div>
+          <div class="info-row__ico" aria-hidden="true">📞</div>
+          <div><div class="info-row__lbl">Call Us</div><div class="info-row__val">
+            <a href="tel:+919677031457">+91 96770 31457</a><br>
+            <a href="tel:+919840962554">+91 98409 62554</a><br>
+            <a href="tel:+919884105544">+91 98841 05544</a>
+          </div></div>
         </div>
         <div class="info-row">
-          <div class="info-row__icon" aria-hidden="true">✉️</div>
-          <div>
-            <div class="info-row__label">Email</div>
-            <div class="info-row__value">
-              <a href="mailto:easecoworking@gmail.com">easecoworking@gmail.com</a>
-            </div>
-          </div>
+          <div class="info-row__ico" aria-hidden="true">✉️</div>
+          <div><div class="info-row__lbl">Email</div><div class="info-row__val"><a href="mailto:easecoworking@gmail.com">easecoworking@gmail.com</a></div></div>
         </div>
         <div class="info-row">
-          <div class="info-row__icon" aria-hidden="true">🕐</div>
-          <div>
-            <div class="info-row__label">Working Hours</div>
-            <div class="info-row__value">Monday – Saturday: 9 AM – 7 PM<br>24-hour access plans available</div>
-          </div>
+          <div class="info-row__ico" aria-hidden="true">🕐</div>
+          <div><div class="info-row__lbl">Working Hours</div><div class="info-row__val">Monday – Saturday: 9 AM – 7 PM<br>24-hour access plans available</div></div>
         </div>
-        <a href="https://maps.google.com/?q=JVL+Plaza+Teynampet+Chennai+600018" target="_blank" rel="noopener" class="btn-directions">
-          Get Directions →
-        </a>
+        <a href="https://maps.google.com/?q=JVL+Plaza+Teynampet+Chennai+600018" target="_blank" rel="noopener" class="btn-dir">Get Directions →</a>
       </div>
-
-      <div class="map-wrap" aria-label="Map showing Ease Coworking location at JVL Plaza, Teynampet">
-        <canvas id="mapCanvas"></canvas>
-      </div>
+      <div class="map-wrap reveal" aria-label="Map of JVL Plaza, Teynampet"><canvas id="mapCanvas"></canvas></div>
     </div>
   </div>
 </section>
 
-<!-- Final CTA -->
+<!-- FINAL CTA -->
 <section class="final-cta" aria-label="Call to action">
-  <h2>Ready to work from Chennai's best coworking space?</h2>
-  <p>Book a free tour — no commitment, no pressure. Just come see it.</p>
-  <div class="cta-row">
+  <h2 class="reveal">Ready to work from Chennai's best coworking space?</h2>
+  <p class="reveal">Book a free tour — no commitment, no pressure. Just come see it.</p>
+  <div class="cta-row reveal">
     <a href="tel:+919677031457" class="btn-white">☎ Call Us Now</a>
     <a href="#bookForm" class="btn-outline-white" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Free Tour</a>
   </div>
@@ -1114,7 +912,7 @@ footer a:hover { color: var(--orange); }
 
 <footer role="contentinfo">
   <p>© 2025 Ease Coworking &nbsp;·&nbsp; 6th Floor, JVL Plaza, Teynampet, Chennai 600018</p>
-  <p style="margin-top:0.3rem">
+  <p style="margin-top:.3rem">
     <a href="https://www.easecoworking.in" target="_blank" rel="noopener">easecoworking.in</a>
     &nbsp;·&nbsp;
     <a href="mailto:easecoworking@gmail.com">easecoworking@gmail.com</a>
@@ -1122,162 +920,352 @@ footer a:hover { color: var(--orange); }
 </footer>
 
 <script>
-/* ── MAP CANVAS ──────────────────────────────────────────── */
-(function drawMap() {
-  const canvas = document.getElementById('mapCanvas');
-  if (!canvas) return;
+/* ────────────────────────────────────────────
+   SCROLL REVEAL
+──────────────────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  function render() {
-    const wrap = canvas.parentElement;
-    const dpr  = window.devicePixelRatio || 1;
-    const W    = wrap.clientWidth;
-    const H    = wrap.clientHeight;
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width  = W + 'px';
-    canvas.style.height = H + 'px';
+/* ────────────────────────────────────────────
+   STAT COUNTERS
+──────────────────────────────────────────── */
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const suffix = el.dataset.suffix || '';
+  if (isNaN(target)) return;
+  const dur = 1400, start = performance.now();
+  (function tick(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  })(start);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); countObs.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat__num[data-count]').forEach(el => countObs.observe(el));
 
-    const ctx = canvas.getContext('2d');
-    ctx.scale(dpr, dpr);
+/* ────────────────────────────────────────────
+   CANVAS ILLUSTRATIONS
+──────────────────────────────────────────── */
+const BLUE    = '#2563B5';
+const BLUELT  = '#BDD2F4';
+const BLUEPLM = '#EBF2FD';
+const ORANGE  = '#F07535';
+const ORANGLT = '#FDDEC8';
+const WHITE   = '#FFFFFF';
+const GREY    = '#E8EDF5';
 
-    /* bg — deep navy */
-    ctx.fillStyle = '#08111F';
-    ctx.fillRect(0, 0, W, H);
+function fit(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.parentElement.clientWidth;
+  const h = canvas.parentElement.clientHeight;
+  canvas.width  = w * dpr; canvas.height = h * dpr;
+  canvas.style.width = w+'px'; canvas.style.height = h+'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { ctx, W: w, H: h };
+}
 
-    const colW = W / 8;
-    const rowH = H / 6;
+/* ── HOT DESK ── open floor plan */
+function drawHotDesk(canvas) {
+  const {ctx, W, H} = fit(canvas);
 
-    /* background city blocks */
-    ctx.fillStyle = '#0E1C30';
-    const blocks = [
-      [0, 0, 3, 2], [4, 0, 4, 2],
-      [0, 3, 3, 3], [4, 3, 4, 3],
-      [0, 0, 3, 1], [5, 1, 2, 1],
-    ];
-    blocks.forEach(([c, r, cw, rh]) => {
-      ctx.fillRect(c * colW + 2, r * rowH + 2, cw * colW - 4, rh * rowH - 4);
+  /* floor */
+  ctx.fillStyle = '#EBF2FD';
+  ctx.fillRect(0, 0, W, H);
+
+  /* tile grid */
+  ctx.strokeStyle = '#D5E3F5'; ctx.lineWidth = 0.5;
+  for (let x = 0; x <= W; x += 32) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for (let y = 0; y <= H; y += 32) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+
+  /* desk layout — 3 rows × 4 desks, two banks separated by aisle */
+  const deskW = 52, deskH = 28, chairR = 8;
+  const rows = [
+    { y: 28, seats: [18,80,160,222] },
+    { y: 90,  seats: [18,80,160,222] },
+    { y: 152, seats: [18,80,160,222] },
+  ];
+
+  rows.forEach(({y, seats}) => {
+    seats.forEach(x => {
+      /* desk surface */
+      ctx.fillStyle = WHITE;
+      ctx.strokeStyle = BLUELT;
+      ctx.lineWidth = 1;
+      roundRect(ctx, x, y, deskW, deskH, 3);
+      ctx.fill(); ctx.stroke();
+
+      /* monitor */
+      ctx.fillStyle = BLUE;
+      ctx.globalAlpha = 0.7;
+      roundRect(ctx, x+10, y+5, 22, 14, 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      /* monitor stand */
+      ctx.fillStyle = BLUE; ctx.globalAlpha = 0.4;
+      ctx.fillRect(x+20, y+19, 4, 6);
+      ctx.globalAlpha = 1;
+
+      /* chair */
+      ctx.beginPath();
+      ctx.arc(x + deskW/2, y + deskH + chairR + 2, chairR, 0, Math.PI*2);
+      ctx.fillStyle = BLUELT; ctx.fill();
+      ctx.strokeStyle = '#9BBDE8'; ctx.lineWidth = 1;
+      ctx.stroke();
     });
+  });
 
-    /* grid road lines */
-    ctx.strokeStyle = '#152035';
-    ctx.lineWidth = 1;
-    for (let c = 1; c < 8; c++) {
-      ctx.beginPath(); ctx.moveTo(c * colW, 0); ctx.lineTo(c * colW, H); ctx.stroke();
-    }
-    for (let r = 1; r < 6; r++) {
-      ctx.beginPath(); ctx.moveTo(0, r * rowH); ctx.lineTo(W, r * rowH); ctx.stroke();
-    }
+  /* plants in corners */
+  plant(ctx, 8, 8, 12, ORANGE);
+  plant(ctx, W-20, 8, 12, ORANGE);
+  plant(ctx, W-20, H-20, 12, '#4CAF50');
+  plant(ctx, 8, H-20, 12, '#4CAF50');
 
-    /* main roads — blue tint */
-    const mainRoadY = rowH * 2.8;
-    const mainRoadX = colW * 3.5;
+  /* small "78 seats" label */
+  badge(ctx, W/2, H-14, '78 Available Desks');
+}
 
-    ctx.strokeStyle = '#1E3358';
-    ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.moveTo(0, mainRoadY); ctx.lineTo(W, mainRoadY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(mainRoadX, 0); ctx.lineTo(mainRoadX, H); ctx.stroke();
+/* ── PRIVATE CABIN ── MD executive room */
+function drawCabin(canvas) {
+  const {ctx, W, H} = fit(canvas);
+  ctx.fillStyle = '#F0F4FF'; ctx.fillRect(0, 0, W, H);
 
-    /* road labels */
-    ctx.font = '9px -apple-system, system-ui, sans-serif';
-    ctx.fillStyle = '#2D4870';
-    ctx.textAlign = 'center';
-    ctx.fillText('Anna Salai', W * 0.18, mainRoadY - 7);
-    ctx.fillText('Teynampet Main Rd', W * 0.72, mainRoadY - 7);
+  /* room walls */
+  ctx.strokeStyle = BLUE; ctx.lineWidth = 2.5;
+  ctx.strokeRect(14, 14, W-28, H-28);
 
-    const pinX = mainRoadX;
-    const pinY = mainRoadY;
+  /* door gap on bottom wall */
+  ctx.clearRect(W/2-18, H-16, 36, 3);
+  ctx.fillStyle = '#F0F4FF';
+  ctx.fillRect(W/2-18, H-16, 36, 3);
 
-    /* orange glow halo */
-    const grd = ctx.createRadialGradient(pinX, pinY, 4, pinX, pinY, 55);
-    grd.addColorStop(0, 'rgba(240,117,53,0.35)');
-    grd.addColorStop(1, 'rgba(240,117,53,0)');
-    ctx.fillStyle = grd;
-    ctx.fillRect(pinX - 55, pinY - 55, 110, 110);
+  /* door arc */
+  ctx.beginPath();
+  ctx.arc(W/2-18, H-14, 36, -Math.PI/2, 0, false);
+  ctx.strokeStyle = BLUE; ctx.lineWidth = 1; ctx.stroke();
 
-    /* outer ring */
-    ctx.beginPath();
-    ctx.arc(pinX, pinY, 22, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(240,117,53,0.25)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
+  /* L-shaped executive desk */
+  ctx.fillStyle = WHITE; ctx.strokeStyle = BLUE; ctx.lineWidth = 1.2;
+  /* main surface */
+  roundRect(ctx, 28, 28, W-100, 44, 4); ctx.fill(); ctx.stroke();
+  /* return */
+  roundRect(ctx, W-84, 28, 44, 80, 4); ctx.fill(); ctx.stroke();
 
-    /* pin circle — orange */
-    ctx.beginPath();
-    ctx.arc(pinX, pinY, 10, 0, Math.PI * 2);
-    ctx.fillStyle = '#F07535';
-    ctx.fill();
+  /* monitor */
+  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.8;
+  roundRect(ctx, 60, 34, 36, 22, 3); ctx.fill();
+  ctx.globalAlpha = 1;
 
-    ctx.beginPath();
-    ctx.arc(pinX, pinY, 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#fff';
-    ctx.fill();
+  /* stand */
+  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.4;
+  ctx.fillRect(76, 56, 4, 6); ctx.globalAlpha = 1;
 
-    /* label bubble */
-    const lbl = 'JVL Plaza, Teynampet';
-    ctx.font = 'bold 10px -apple-system, system-ui, sans-serif';
-    const lw  = ctx.measureText(lbl).width + 18;
-    const lx  = Math.min(pinX - lw / 2, W - lw - 8);
-    const ly  = pinY - 34;
+  /* laptop on return */
+  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.5;
+  roundRect(ctx, W-78, 46, 28, 18, 2); ctx.fill(); ctx.globalAlpha = 1;
 
-    ctx.fillStyle = '#F07535';
-    roundRect(ctx, lx, ly - 14, lw, 20, 3);
-    ctx.fill();
+  /* executive chair */
+  ctx.beginPath();
+  ctx.arc(W/2-10, 100, 20, 0, Math.PI*2);
+  ctx.fillStyle = '#2563B5'; ctx.globalAlpha = 0.25; ctx.fill(); ctx.globalAlpha = 1;
+  ctx.beginPath(); ctx.arc(W/2-10, 100, 14, 0, Math.PI*2);
+  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.6; ctx.fill(); ctx.globalAlpha = 1;
 
-    ctx.fillStyle = '#fff';
-    ctx.textAlign = 'left';
-    ctx.fillText(lbl, lx + 9, ly - 1);
+  /* bookshelf on left wall */
+  ctx.fillStyle = '#D4E3F7'; ctx.fillRect(18, 80, 8, 60);
+  ctx.strokeStyle = BLUELT; ctx.lineWidth = 0.5;
+  for (let i = 0; i < 4; i++) ctx.fillRect(19, 81+i*15, 6, 12);
 
-    /* triangle pointer */
-    ctx.beginPath();
-    ctx.moveTo(pinX - 5, ly + 6);
-    ctx.lineTo(pinX + 5, ly + 6);
-    ctx.lineTo(pinX, ly + 12);
-    ctx.fillStyle = '#F07535';
-    ctx.fill();
+  /* orange plant */
+  plant(ctx, W-36, H-40, 14, ORANGE);
+
+  badge(ctx, W/2, H-14, 'Private MD Cabin · 3 Seats');
+}
+
+/* ── TEAM CABIN ── cluster layout */
+function drawTeam(canvas) {
+  const {ctx, W, H} = fit(canvas);
+  ctx.fillStyle = '#F4F7FC'; ctx.fillRect(0, 0, W, H);
+
+  /* room */
+  ctx.strokeStyle = BLUE; ctx.lineWidth = 2;
+  ctx.strokeRect(12, 12, W-24, H-24);
+
+  /* whiteboard on top wall */
+  ctx.fillStyle = WHITE; ctx.strokeStyle = '#9BBDE8'; ctx.lineWidth = 1;
+  roundRect(ctx, W/2-50, 18, 100, 32, 2); ctx.fill(); ctx.stroke();
+  /* lines on whiteboard */
+  ctx.strokeStyle = '#C0D4EF'; ctx.lineWidth = 0.5;
+  for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(W/2-42,26+i*9); ctx.lineTo(W/2+42,26+i*9); ctx.stroke(); }
+  /* marker dot */
+  ctx.fillStyle = ORANGE; ctx.beginPath(); ctx.arc(W/2-38, 28, 2, 0, Math.PI*2); ctx.fill();
+
+  /* cluster of desks — 2×2 pod */
+  const pod = (x, y) => {
+    const dw = 42, dh = 22;
+    /* top-left */
+    ctx.fillStyle = WHITE; ctx.strokeStyle = BLUELT; ctx.lineWidth = 1;
+    roundRect(ctx, x, y, dw, dh, 3); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
+    roundRect(ctx, x+8, y+4, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
+
+    /* top-right */
+    roundRect(ctx, x+dw+6, y, dw, dh, 3); ctx.fillStyle=WHITE; ctx.fill(); ctx.strokeStyle=BLUELT; ctx.stroke();
+    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
+    roundRect(ctx, x+dw+14, y+4, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
+
+    /* bottom-left */
+    roundRect(ctx, x, y+dh+6, dw, dh, 3); ctx.fillStyle=WHITE; ctx.fill(); ctx.strokeStyle=BLUELT; ctx.stroke();
+    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
+    roundRect(ctx, x+8, y+dh+10, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
+
+    /* bottom-right */
+    roundRect(ctx, x+dw+6, y+dh+6, dw, dh, 3); ctx.fillStyle=WHITE; ctx.fill(); ctx.strokeStyle=BLUELT; ctx.stroke();
+    ctx.fillStyle = BLUE; ctx.globalAlpha = 0.55;
+    roundRect(ctx, x+dw+14, y+dh+10, 18, 12, 2); ctx.fill(); ctx.globalAlpha = 1;
+
+    /* chairs around pod */
+    const seats = [
+      [x+dw/2, y-10], [x+dw+dw/2+6, y-10],
+      [x+dw/2, y+dh*2+16], [x+dw+dw/2+6, y+dh*2+16],
+    ];
+    seats.forEach(([cx,cy]) => {
+      ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI*2);
+      ctx.fillStyle = BLUELT; ctx.fill();
+    });
+  };
+
+  pod(28, 64);   /* left pod */
+  pod(W/2+2, 64); /* right pod */
+
+  plant(ctx, W-30, H-30, 13, ORANGE);
+  badge(ctx, W/2, H-14, '8 Team Cabins · 4–14 Seats');
+}
+
+/* ── CONFERENCE small thumbnail */
+function drawConfSmall(canvas) {
+  const {ctx, W, H} = fit(canvas);
+  ctx.fillStyle = BLUEPLM; ctx.fillRect(0, 0, W, H);
+  /* table */
+  ctx.fillStyle = WHITE; ctx.strokeStyle = BLUELT; ctx.lineWidth = 1;
+  roundRect(ctx, 8, 8, W-16, H-16, 4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = BLUE; ctx.globalAlpha = 0.2;
+  roundRect(ctx, 14, 14, W-28, H-28, 3); ctx.fill(); ctx.globalAlpha = 1;
+  ctx.fillStyle = ORANGE; ctx.globalAlpha = 0.6;
+  ctx.beginPath(); ctx.arc(W/2, H/2, 4, 0, Math.PI*2); ctx.fill(); ctx.globalAlpha = 1;
+}
+
+/* ── MAP ── */
+function drawMap(canvas) {
+  const {ctx, W, H} = fit(canvas);
+  ctx.fillStyle = '#08111F'; ctx.fillRect(0,0,W,H);
+  const cw = W/8, rh = H/6;
+  ctx.fillStyle = '#0E1C30';
+  [[0,0,3,2],[4,0,4,2],[0,3,3,3],[4,3,4,3]].forEach(([c,r,cW,rH]) => {
+    ctx.fillRect(c*cw+2, r*rh+2, cW*cw-4, rH*rh-4);
+  });
+  ctx.strokeStyle = '#152035'; ctx.lineWidth = 1;
+  for(let c=1;c<8;c++){ctx.beginPath();ctx.moveTo(c*cw,0);ctx.lineTo(c*cw,H);ctx.stroke()}
+  for(let r=1;r<6;r++){ctx.beginPath();ctx.moveTo(0,r*rh);ctx.lineTo(W,r*rh);ctx.stroke()}
+  const mY = rh*2.8, mX = cw*3.5;
+  ctx.strokeStyle = '#1E3358'; ctx.lineWidth = 4;
+  ctx.beginPath();ctx.moveTo(0,mY);ctx.lineTo(W,mY);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(mX,0);ctx.lineTo(mX,H);ctx.stroke();
+  ctx.font='9px system-ui,sans-serif'; ctx.fillStyle='#2D4870'; ctx.textAlign='center';
+  ctx.fillText('Anna Salai', W*.18, mY-7);
+  ctx.fillText('Teynampet Main Rd', W*.72, mY-7);
+  const g = ctx.createRadialGradient(mX,mY,4,mX,mY,55);
+  g.addColorStop(0,'rgba(240,117,53,.35)'); g.addColorStop(1,'rgba(240,117,53,0)');
+  ctx.fillStyle=g; ctx.fillRect(mX-55,mY-55,110,110);
+  ctx.beginPath();ctx.arc(mX,mY,22,0,Math.PI*2);
+  ctx.strokeStyle='rgba(240,117,53,.25)';ctx.lineWidth=1;ctx.stroke();
+  ctx.beginPath();ctx.arc(mX,mY,10,0,Math.PI*2);ctx.fillStyle=ORANGE;ctx.fill();
+  ctx.beginPath();ctx.arc(mX,mY,4,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+  const lbl='JVL Plaza, Teynampet';
+  ctx.font='bold 10px system-ui,sans-serif';
+  const lw=ctx.measureText(lbl).width+18;
+  const lx=Math.min(mX-lw/2, W-lw-8), ly=mY-34;
+  ctx.fillStyle=ORANGE; roundRect(ctx,lx,ly-14,lw,20,3); ctx.fill();
+  ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText(lbl,lx+9,ly-1);
+  ctx.beginPath();ctx.moveTo(mX-5,ly+6);ctx.lineTo(mX+5,ly+6);ctx.lineTo(mX,ly+12);
+  ctx.fillStyle=ORANGE;ctx.fill();
+
+  /* Animated ping */
+  let pingT = 0;
+  function pingLoop() {
+    pingT += 0.03;
+    const r = 10 + Math.sin(pingT)*8;
+    ctx.clearRect(mX-35, mY-35, 70, 70);
+    const g2 = ctx.createRadialGradient(mX,mY,4,mX,mY,55);
+    g2.addColorStop(0,'rgba(240,117,53,.35)'); g2.addColorStop(1,'rgba(240,117,53,0)');
+    ctx.fillStyle=g2; ctx.fillRect(mX-55,mY-55,110,110);
+    ctx.beginPath(); ctx.arc(mX,mY,r,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(240,117,53,${0.4-r/40})`; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.beginPath();ctx.arc(mX,mY,10,0,Math.PI*2);ctx.fillStyle=ORANGE;ctx.fill();
+    ctx.beginPath();ctx.arc(mX,mY,4,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+    requestAnimationFrame(pingLoop);
   }
+  pingLoop();
+}
 
-  function roundRect(ctx, x, y, w, h, r) {
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + w - r, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-    ctx.lineTo(x + w, y + h - r);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    ctx.lineTo(x + r, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-    ctx.lineTo(x, y + r);
-    ctx.quadraticCurveTo(x, y, x + r, y);
-    ctx.closePath();
-  }
+/* ── HELPERS ── */
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+function plant(ctx, x, y, r, color) {
+  ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.fillStyle=color; ctx.globalAlpha=0.55; ctx.fill(); ctx.globalAlpha=1;
+  ctx.beginPath(); ctx.arc(x-r*.4,y-r*.3,r*.55,0,Math.PI*2);
+  ctx.fillStyle=color; ctx.globalAlpha=0.4; ctx.fill(); ctx.globalAlpha=1;
+}
+function badge(ctx, x, y, text) {
+  ctx.font='bold 9px system-ui,sans-serif';
+  const tw = ctx.measureText(text).width;
+  const pw = tw + 16, ph = 16;
+  ctx.fillStyle='rgba(37,99,181,.12)';
+  roundRect(ctx, x-pw/2, y-ph/2, pw, ph, 8); ctx.fill();
+  ctx.fillStyle=BLUE; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(text, x, y); ctx.textBaseline='alphabetic';
+}
 
-  render();
-  window.addEventListener('resize', render);
-})();
+/* Init all canvases */
+function initCanvases() {
+  drawHotDesk(document.getElementById('art-hotdesk'));
+  drawCabin(document.getElementById('art-cabin'));
+  drawTeam(document.getElementById('art-team'));
+  drawConfSmall(document.getElementById('art-conf-sm'));
+  drawMap(document.getElementById('mapCanvas'));
+}
+initCanvases();
+window.addEventListener('resize', initCanvases);
 
-/* ── FORM SUBMIT ──────────────────────────────────────────── */
+/* ────────────────────────────────────────────
+   FORM SUBMIT
+──────────────────────────────────────────── */
 function handleSubmit(e) {
   e.preventDefault();
-  const btn   = document.getElementById('submitBtn');
-  const name  = document.getElementById('f-name').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-
-  if (!name || !phone) {
-    alert('Please fill in your name and phone number.');
-    return;
-  }
-
+  const btn  = document.getElementById('submitBtn');
+  const name = document.getElementById('f-name').value.trim();
+  const phone= document.getElementById('f-phone').value.trim();
+  if (!name || !phone) { alert('Please fill in your name and phone number.'); return; }
   const seats = document.getElementById('f-seats').selectedOptions[0].text;
   const type  = document.getElementById('f-type').selectedOptions[0].text;
-
-  btn.textContent  = '✓ Request received!';
+  btn.textContent = '✓ Request received!';
   btn.style.background = '#3A8A50';
   btn.disabled = true;
-
-  const msg = encodeURIComponent(
-    `Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nSeats: ${seats}\nType: ${type}\n\nPlease call me back. Thank you!`
-  );
-  setTimeout(() => {
-    window.open('https://wa.me/919677031457?text=' + msg, '_blank');
-  }, 600);
+  const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
+  setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
