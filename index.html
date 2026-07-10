@@ -616,29 +616,30 @@ a{color:inherit}
 .btn-dir:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 
 /* ── FINAL CTA ──────────────────────────────────── */
-.final-cta{background:var(--orange);padding:5.5rem 1.5rem;text-align:center;position:relative;overflow:hidden}
+.final-cta{background:linear-gradient(135deg,#060E1E 0%,#0D1A35 45%,#142240 100%);padding:6rem 1.5rem;text-align:center;position:relative;overflow:hidden}
 .final-cta::before{
   content:'';position:absolute;inset:0;
-  background-image:radial-gradient(circle,rgba(255,255,255,.1) 1px,transparent 1px);
-  background-size:28px 28px;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(37,99,181,.22) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;z-index:0;
 }
 .final-cta h2{
-  font-family:var(--ff-d);font-size:clamp(1.9rem,4vw,3.2rem);font-weight:400;
-  color:#fff;text-wrap:balance;margin-bottom:.65rem;line-height:1.18;
-  position:relative;z-index:1;
+  font-family:var(--ff-d);font-size:clamp(2rem,4.5vw,3.6rem);font-weight:700;
+  color:#E8EDF5;text-wrap:balance;margin-bottom:.8rem;line-height:1.12;
+  letter-spacing:-.02em;position:relative;z-index:1;
 }
-.final-cta p{color:rgba(255,255,255,.78);font-size:1rem;margin-bottom:2.25rem;max-width:430px;margin-left:auto;margin-right:auto;position:relative;z-index:1}
-.cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.final-cta h2 em{font-style:italic;color:var(--orange)}
+.final-cta p{color:rgba(189,210,244,.75);font-size:1.05rem;margin-bottom:2.5rem;max-width:480px;margin-left:auto;margin-right:auto;position:relative;z-index:1;line-height:1.7}
+.cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:2}
 .btn-white{
-  background:#fff;color:var(--orange-deep);border:none;
-  padding:.9rem 2rem;font-family:var(--ff-u);font-size:.95rem;font-weight:700;
-  letter-spacing:.04em;border-radius:var(--r);cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:.4rem;
-  transition:background .18s,transform .15s var(--ease),box-shadow .18s;
-  box-shadow:0 4px 20px rgba(0,0,0,.2);
+  background:var(--orange);color:#fff;border:none;
+  padding:1rem 2.2rem;font-family:var(--ff-u);font-size:1rem;font-weight:700;
+  letter-spacing:.03em;border-radius:50px;cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.5rem;
+  transition:background .2s,transform .2s var(--ease),box-shadow .2s;
+  box-shadow:0 6px 24px rgba(240,117,53,.4);
 }
-.btn-white:hover{background:var(--orange-lt);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
-.btn-white:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.btn-white:hover{background:var(--orange-deep);transform:translateY(-3px);box-shadow:0 14px 36px rgba(240,117,53,.5)}
+.btn-white:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 .btn-outline-white{
   background:transparent;color:#fff;border:2px solid rgba(255,255,255,.65);
   padding:.9rem 2rem;font-family:var(--ff-u);font-size:.95rem;font-weight:700;
@@ -649,6 +650,12 @@ a{color:inherit}
 .btn-outline-white:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
 .btn-outline-white:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
+
+/* CTA orbs */
+@keyframes ctaOrb{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-18px)}}
+.cta-orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0}
+.cta-orb-1{width:420px;height:420px;background:rgba(37,99,181,.22);top:-120px;right:-80px;animation:ctaOrb 9s ease-in-out infinite}
+.cta-orb-2{width:300px;height:300px;background:rgba(240,117,53,.15);bottom:-80px;left:5%;animation:ctaOrb 11s ease-in-out infinite reverse}
 /* ── FOOTER ─────────────────────────────────────── */
 footer{background:#070E1C;color:#2D3D58;text-align:center;padding:1.5rem;font-size:.78rem;line-height:1.8}
 footer a{color:var(--blue-light);text-decoration:none;transition:color .15s}
@@ -1940,6 +1947,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
