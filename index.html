@@ -70,6 +70,11 @@ a{color:inherit}
   border-bottom:1px solid rgba(37,99,181,.3);
   backdrop-filter:blur(12px);
 }
+/* Logo in top bar */
+.top-bar__logo{display:flex;align-items:center;gap:.55rem;text-decoration:none;flex-shrink:0}
+.top-bar__logo-text{display:flex;flex-direction:column;line-height:1;gap:2px}
+.logo-ease{font-family:var(--ff-u);font-size:1.12rem;font-weight:800;color:var(--blue-light);letter-spacing:.06em}
+.logo-cw{font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(189,210,244,.55)}
 .top-bar__brand{font-family:var(--ff-d);font-size:1.05rem;color:var(--blue-light);letter-spacing:.03em;white-space:nowrap}
 .top-bar__right{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
 .top-bar__urgency{
@@ -677,7 +682,25 @@ footer a:hover{color:var(--orange)}
 
 <!-- TOP BAR -->
 <header class="top-bar" role="banner">
-  <span class="top-bar__brand">Ease Coworking</span>
+  <a href="#" class="top-bar__logo" aria-label="Ease Coworking home">
+    <!-- Logo mark: 4 rounded quadrants, blue + orange -->
+    <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Top-left: blue -->
+      <rect x="1" y="1" width="16" height="16" rx="5.5" fill="#2563B5"/>
+      <!-- Top-right: orange -->
+      <rect x="21" y="1" width="16" height="16" rx="5.5" fill="#F07535"/>
+      <!-- Bottom-left: orange -->
+      <rect x="1" y="21" width="16" height="16" rx="5.5" fill="#F07535"/>
+      <!-- Bottom-right: blue -->
+      <rect x="21" y="21" width="16" height="16" rx="5.5" fill="#2563B5"/>
+      <!-- Center connector dot -->
+      <circle cx="19" cy="19" r="3" fill="white" opacity="0.18"/>
+    </svg>
+    <div class="top-bar__logo-text">
+      <span class="logo-ease">EASE</span>
+      <span class="logo-cw">Coworking</span>
+    </div>
+  </a>
   <div class="top-bar__right">
     <span class="top-bar__urgency">
       <span class="urgency-dot" aria-hidden="true"></span>
