@@ -1475,15 +1475,7 @@ function drawCabin(canvas) {
   roundRect(ctx,deskX,deskY,mainW,mainH,4); ctx.fill(); ctx.stroke();
   roundRect(ctx,deskX+mainW,deskY,retW,retH,4); ctx.fill(); ctx.stroke();
 
-  /* monitor on main desk */
-  ctx.fillStyle=BLUE; ctx.globalAlpha=0.8;
-  roundRect(ctx,deskX+mainW*0.15,deskY+mainH*0.15,mainW*0.35,mainH*0.55,3); ctx.fill(); ctx.globalAlpha=1;
-  ctx.fillStyle=BLUE; ctx.globalAlpha=0.35;
-  ctx.fillRect(deskX+mainW*0.3,deskY+mainH*0.72,mainW*0.05,mainH*0.25); ctx.globalAlpha=1;
 
-  /* laptop on return */
-  ctx.fillStyle=BLUE; ctx.globalAlpha=0.5;
-  roundRect(ctx,deskX+mainW+retW*0.12,deskY+retH*0.15,retW*0.72,retH*0.28,2); ctx.fill(); ctx.globalAlpha=1;
 
   /* executive chair — centred below main desk */
   const chairX=deskX+mainW*0.38, chairY=deskY+mainH+H*0.2;
@@ -1526,8 +1518,7 @@ function drawTeam(canvas) {
     [[0,0],[dw+dgap,0],[0,dh+dgap],[dw+dgap,dh+dgap]].forEach(([dx,dy])=>{
       ctx.fillStyle=WHITE; ctx.strokeStyle=BLUELT; ctx.lineWidth=1;
       roundRect(ctx,ox+dx,oy+dy,dw,dh,3); ctx.fill(); ctx.stroke();
-      ctx.fillStyle=BLUE; ctx.globalAlpha=0.55;
-      roundRect(ctx,ox+dx+dw*0.17,oy+dy+dh*0.2,dw*0.45,dh*0.55,2); ctx.fill(); ctx.globalAlpha=1;
+
     });
     /* chairs: top row above, bottom row below */
     [[dw/2,- cR-H*0.01],[dw+dgap+dw/2,-cR-H*0.01],
@@ -1740,6 +1731,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
