@@ -2288,36 +2288,27 @@ async function handleSubmit(e) {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  /* Send email via Web3Forms */
   try {
-    const payload = {
-      access_key: 'PASTE_YOUR_WEB3FORMS_KEY_HERE',
-      subject: `New Tour Booking — ${name} | Ease Coworking`,
-      from_name: 'Ease Coworking Website',
-      replyto: 'easecoworking@gmail.com',
-      name,
-      phone,
-      seats,
-      workspace: type,
-      message: `New tour booking request received:\n\nName: ${name}\nPhone: ${phone}\nTeam Size: ${seats}\nWorkspace Type: ${type}`
-    };
-    const res  = await fetch('https://api.web3forms.com/submit', {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('phone', phone);
+    formData.append('Team Size', seats);
+    formData.append('Workspace Type', type);
+    formData.append('_subject', `New Tour Booking — ${name} | Ease Coworking`);
+    formData.append('_captcha', 'false');
+    formData.append('_template', 'table');
+
+    const res = await fetch('https://formsubmit.co/easecoworking@gmail.com', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+      body: formData,
+      headers: { 'Accept': 'application/json' }
     });
-    const data = await res.json();
-    if (data.success) {
-      btn.textContent = '✓ Request Sent!';
-      btn.style.background = '#3A8A50';
-      /* Also open WhatsApp so they get instant notification */
-      const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
-      setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 800);
-    } else {
-      throw new Error('Web3Forms error');
-    }
-  } catch (err) {
-    /* Fallback: WhatsApp only */
+
+    btn.textContent = '✓ Request Sent!';
+    btn.style.background = '#3A8A50';
+    const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
+    setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 800);
+  } catch(err) {
     btn.textContent = '✓ Request received!';
     btn.style.background = '#3A8A50';
     const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
@@ -2325,6 +2316,7 @@ async function handleSubmit(e) {
   }
 }
 </script>
+
 
 
 
