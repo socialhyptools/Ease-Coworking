@@ -2276,21 +2276,56 @@ function handlePopupSubmit(e) {
 /* ────────────────────────────────────────────
    FORM SUBMIT
 ──────────────────────────────────────────── */
-function handleSubmit(e) {
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn  = document.getElementById('submitBtn');
-  const name = document.getElementById('f-name').value.trim();
-  const phone= document.getElementById('f-phone').value.trim();
+  const btn   = document.getElementById('submitBtn');
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
   if (!name || !phone) { alert('Please fill in your name and phone number.'); return; }
   const seats = document.getElementById('f-seats').selectedOptions[0].text;
   const type  = document.getElementById('f-type').selectedOptions[0].text;
-  btn.textContent = '✓ Request received!';
-  btn.style.background = '#3A8A50';
+
+  btn.textContent = 'Sending…';
   btn.disabled = true;
-  const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
-  setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
+
+  /* Send email via Web3Forms */
+  try {
+    const payload = {
+      access_key: 'PASTE_YOUR_WEB3FORMS_KEY_HERE',
+      subject: `New Tour Booking — ${name} | Ease Coworking`,
+      from_name: 'Ease Coworking Website',
+      replyto: 'easecoworking@gmail.com',
+      name,
+      phone,
+      seats,
+      workspace: type,
+      message: `New tour booking request received:\n\nName: ${name}\nPhone: ${phone}\nTeam Size: ${seats}\nWorkspace Type: ${type}`
+    };
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      btn.textContent = '✓ Request Sent!';
+      btn.style.background = '#3A8A50';
+      /* Also open WhatsApp so they get instant notification */
+      const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
+      setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 800);
+    } else {
+      throw new Error('Web3Forms error');
+    }
+  } catch (err) {
+    /* Fallback: WhatsApp only */
+    btn.textContent = '✓ Request received!';
+    btn.style.background = '#3A8A50';
+    const msg = encodeURIComponent(`Hi! I'd like to book a free tour at Ease Coworking.\n\nName: ${name}\nPhone: ${phone}\nTeam size: ${seats}\nWorkspace: ${type}\n\nPlease call me back. Thank you!`);
+    setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 600);
+  }
 }
 </script>
+
 
 
 
