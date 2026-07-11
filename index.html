@@ -188,6 +188,29 @@ a{color:inherit}
 .qs-divider{width:1px;background:var(--border);align-self:stretch}
 
 .hero__chips{display:flex;flex-wrap:wrap;gap:.55rem}
+
+/* Hero CTA buttons */
+.hero__cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;align-items:center}
+.hero-btn-primary{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:var(--blue-deep);color:#fff;
+  padding:.95rem 2rem;border-radius:50px;
+  font-family:var(--ff-u);font-size:1rem;font-weight:700;
+  letter-spacing:.02em;text-decoration:none;
+  box-shadow:0 6px 22px rgba(26,74,150,.35);
+  transition:background .2s,transform .2s var(--ease),box-shadow .2s;
+}
+.hero-btn-primary:hover{background:var(--blue);transform:translateY(-3px);box-shadow:0 12px 30px rgba(26,74,150,.45)}
+.hero-btn-outline{
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:transparent;color:var(--blue-deep);
+  padding:.92rem 1.9rem;border-radius:50px;
+  border:2px solid var(--blue-deep);
+  font-family:var(--ff-u);font-size:1rem;font-weight:700;
+  letter-spacing:.02em;text-decoration:none;
+  transition:background .2s,color .2s,transform .2s var(--ease);
+}
+.hero-btn-outline:hover{background:var(--blue-deep);color:#fff;transform:translateY(-3px)}
 .chip{
   font-size:.76rem;color:var(--hero-chip-clr);
   background:var(--hero-chip-bg);border:1px solid var(--hero-chip-bd);
@@ -1020,9 +1043,9 @@ footer a:hover{color:var(--orange)}
 
   <div class="hero__inner">
     <div class="hero__text">
-      <div class="hero__badge"><span class="badge-pin">📍</span>Teynampet · Chennai · JVL Plaza, 6th Floor</div>
-      <h1 class="hero__title">Your office.<br><em>On your terms.</em></h1>
-      <p class="hero__sub">Premium coworking for Chennai's startups, freelancers, and growing teams — architect-designed, corporate-grade, no long-term lock-in.</p>
+      <div class="hero__badge"><span class="badge-pin">✦</span>Innovate &nbsp;·&nbsp; Collaborate &nbsp;·&nbsp; Elevate</div>
+      <h1 class="hero__title">Built for Dreamers<br><em>Like You.</em></h1>
+      <p class="hero__sub">Empowering Chennai's startups, freelancers, and growing teams with flexible workspaces, smart collaboration, and premium infrastructure — all designed to help you scale confidently.</p>
 
       <div class="hero__quickstats">
         <div class="qs"><strong>78</strong><span>Hot desks</span></div>
@@ -1034,10 +1057,9 @@ footer a:hover{color:var(--orange)}
         <div class="qs"><strong>6th</strong><span>Floor views</span></div>
       </div>
 
-      <div class="hero__chips">
-        <span class="chip">No long-term lock-in</span>
-        <span class="chip">Day pass · Desk · Cabin</span>
-        <span class="chip">Ready from Day One</span>
+      <div class="hero__cta-row">
+        <a href="#find-us" class="hero-btn-primary">Explore Spaces &nbsp;→</a>
+        <a href="#bookForm" class="hero-btn-outline" onclick="setTimeout(()=>document.getElementById('f-name').focus(),100)">Book a Workspace</a>
       </div>
     </div>
 
@@ -2230,6 +2252,7 @@ function handleSubmit(e) {
   setTimeout(() => window.open('https://wa.me/919677031457?text='+msg,'_blank'), 700);
 }
 </script>
+
 
 
 
